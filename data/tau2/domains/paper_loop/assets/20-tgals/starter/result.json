@@ -1,0 +1,28 @@
+{
+  "algorithm": "TGALS core reconstruction",
+  "checks": {
+    "all_tasks_assigned_once": true,
+    "elite_seed_preserved_or_improved": true,
+    "finite": true
+  },
+  "metrics": {
+    "best_assignment_by_task": [
+      5,
+      4,
+      2,
+      6,
+      1,
+      7,
+      0,
+      3
+    ],
+    "conflict_repairs": 371,
+    "final_revenue": 750.584425,
+    "hungarian_seed_revenue": 750.584425,
+    "initial_random_best_revenue": 705.354747,
+    "tasks": 8,
+    "uavs": 8
+  },
+  "paper": "Two-stage heuristic genetic optimization algorithm for multi-UAV",
+  "seed": 20251020
+}

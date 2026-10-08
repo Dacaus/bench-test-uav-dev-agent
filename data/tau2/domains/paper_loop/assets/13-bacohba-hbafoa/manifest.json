@@ -1,0 +1,49 @@
+{
+  "assets": {
+    "paper": {
+      "path": "assets/13-bacohba-hbafoa/paper.pdf",
+      "sha256": "75bc78ae135971d8744d4512a93f12453771adf89595d09d4d6921c207fa1829"
+    },
+    "starter_candidate": {
+      "entries": {
+        "README.md": {
+          "kind": "file",
+          "sha256": "fafb321d0b266ad046efe1658811e672790b55d149e0bce3db3aa22c0afc3fd9"
+        },
+        "execution-graph.svg": {
+          "kind": "file",
+          "sha256": "de5d56b46b96bf27dd684aa91fc1f74408630d1e515ae34fb20575cab4f41efc"
+        },
+        "result.json": {
+          "kind": "file",
+          "sha256": "8829f2810358981538176ddc984a4583dd2c100b92a55f355b53016b677d1f48"
+        },
+        "run.py": {
+          "kind": "file",
+          "sha256": "3bc4a43b411a9f5e82899dde87bfb13d9f786bbc3968c7eadf3a3642bf524ed7"
+        }
+      },
+      "entry_count": 4,
+      "excluded_globs": [
+        "**/__pycache__/**",
+        "**/*.pyc"
+      ],
+      "hash_algorithm": "paper-loop-source-tree-v1",
+      "path": "assets/13-bacohba-hbafoa/starter",
+      "tree_sha256": "1b321415ed756d172bc8fbd8b9c0a9408f367ccc20628a5b4247d108b8c6913c"
+    },
+    "task": {
+      "path": "assets/13-bacohba-hbafoa/TASK.md",
+      "sha256": "34de42f5e6afb441f64967644b1dd063f294f6b61bf95ae0b2641ee40ec50e18"
+    }
+  },
+  "benchmark_split": "test",
+  "case_id": "13-bacohba-hbafoa",
+  "domain": "paper_loop",
+  "family": "task-allocation-and-path-planning",
+  "in_base": false,
+  "lifecycle_status": "candidate",
+  "path_base": "domain-root",
+  "schema_version": 1,
+  "visibility": "agent"
+}

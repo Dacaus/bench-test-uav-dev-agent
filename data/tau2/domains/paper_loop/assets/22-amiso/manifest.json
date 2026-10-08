@@ -1,0 +1,49 @@
+{
+  "assets": {
+    "paper": {
+      "path": "assets/22-amiso/paper.pdf",
+      "sha256": "c2ec670e2d560f001ed64e6edb5eb73ca21912897ce4f0c86a2e06ba0e811f3b"
+    },
+    "starter_candidate": {
+      "entries": {
+        "README.md": {
+          "kind": "file",
+          "sha256": "c8390c223b515a7f7685541305cd7b8bf5a55a0867db2754a0426b2562ef834c"
+        },
+        "execution-graph.svg": {
+          "kind": "file",
+          "sha256": "1c2082ecdc54c75fbd5622e9e0de6e918394451b851e627769ec54e7634eefed"
+        },
+        "result.json": {
+          "kind": "file",
+          "sha256": "5f60966bd5b118fe865832b2129bd41bf0b7fb747a9992217ee99ce41c8bd6a5"
+        },
+        "run.py": {
+          "kind": "file",
+          "sha256": "d9163af4bd8f58a043055270ad6a50d3ae07c8807cac156acf4b7bec125d8d69"
+        }
+      },
+      "entry_count": 4,
+      "excluded_globs": [
+        "**/__pycache__/**",
+        "**/*.pyc"
+      ],
+      "hash_algorithm": "paper-loop-source-tree-v1",
+      "path": "assets/22-amiso/starter",
+      "tree_sha256": "93de9a07081e457b9da087a1dbac9bb4a8ca9de0691b891dfb635cce8e5b5191"
+    },
+    "task": {
+      "path": "assets/22-amiso/TASK.md",
+      "sha256": "a4d6de37c14fa04a65560c775a4dfb74a1b94d45f33fd3281ee2037be55aeb87"
+    }
+  },
+  "benchmark_split": "test",
+  "case_id": "22-amiso",
+  "domain": "paper_loop",
+  "family": "multi-uav-path-planning",
+  "in_base": false,
+  "lifecycle_status": "candidate",
+  "path_base": "domain-root",
+  "schema_version": 1,
+  "visibility": "agent"
+}

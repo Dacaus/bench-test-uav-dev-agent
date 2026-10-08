@@ -1,0 +1,27 @@
+{
+  "algorithm": "BACOHBA + HBAFOA",
+  "checks": {
+    "assignment_not_worse_than_baseline": true,
+    "each_task_assigned_once": true,
+    "finite": true,
+    "foa_repair_exercised": true,
+    "terrain_clearance_satisfied": true
+  },
+  "metrics": {
+    "assignment_final_cost": 4.363912779164389,
+    "assignment_improvement": 1.7635452909272011,
+    "assignment_initial_cost": 6.12745807009159,
+    "foa_replans": 479,
+    "hbafoa_path_cost": 4.019640022836672,
+    "maximum_clearance_sample_spacing": 0.01,
+    "minimum_terrain_clearance": 0.0033621812979231364,
+    "path_improvement": 38.95051227074444,
+    "straight_midpoint_minimum_clearance": -0.09254936921816885,
+    "straight_midpoint_path_cost": 42.970152293581116,
+    "task_points_excluding_depot": 8,
+    "uavs": 2,
+    "wind_regions": 4
+  },
+  "paper": "Multi-mechanism swarm optimization for multi-UAV task assignment and.pdf",
+  "seed": 202513
+}

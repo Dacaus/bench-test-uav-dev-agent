@@ -1,0 +1,45 @@
+{
+  "algorithm": "multi-type-gene GA with utility-order unlocking and resource repair",
+  "checks": {
+    "best_not_worse_than_initial": true,
+    "coalition_size_limit_satisfied": true,
+    "deadlock_free_global_target_order": true,
+    "finite_metrics": true,
+    "no_duplicate_uav_within_target": true,
+    "resource_requirements_satisfied": true,
+    "simultaneous_arrival_satisfied": true,
+    "synchronization_wait_exercised": true
+  },
+  "metrics": {
+    "best_cost": 37.8653320559843,
+    "coalition_sizes": [
+      2,
+      2,
+      2
+    ],
+    "crossovers": 2470,
+    "generations": 65,
+    "initial_best_cost": 51.66463809297479,
+    "maximum_pre_wait_arrival_spread": 3.0476558234153153,
+    "maximum_uav_distance": 8.86209338589596,
+    "mission_completion_time": 10.198032297306053,
+    "mutations": 884,
+    "relative_improvement": 0.26709382948076593,
+    "resource_slack": [
+      3,
+      3
+    ],
+    "simultaneous_arrival_error": 0.0,
+    "simultaneous_arrival_relative_error": 0.0,
+    "synchronization_time_scale": 10.198032297306053,
+    "target_execution_order": [
+      0,
+      1,
+      2
+    ],
+    "total_flight_distance": 30.728958094114397,
+    "total_synchronization_wait": 5.074979512026833
+  },
+  "paper": "Cooperative task allocation with simultaneous arrival and resource constraint for multi-UAV using a genetic algorithm.pdf",
+  "seed": 20240707
+}

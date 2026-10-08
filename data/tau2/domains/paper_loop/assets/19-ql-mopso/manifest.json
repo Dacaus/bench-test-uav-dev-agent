@@ -1,0 +1,49 @@
+{
+  "assets": {
+    "paper": {
+      "path": "assets/19-ql-mopso/paper.pdf",
+      "sha256": "8e7d0d646543d5604a753cc156ab839b0046c33466aac9daac6a27b78927d3e3"
+    },
+    "starter_candidate": {
+      "entries": {
+        "README.md": {
+          "kind": "file",
+          "sha256": "c0a7635f0409e33fc76e8e8859ccded5d49659042bab1d2361e36bf4ea0705bf"
+        },
+        "execution-graph.svg": {
+          "kind": "file",
+          "sha256": "45e8c3f391fe7244e8fd7879b49e6fe598025d963c37f6185dd5b83bf2d21d09"
+        },
+        "result.json": {
+          "kind": "file",
+          "sha256": "31942440993b54cbd8eca6b5b701c2a1a2f1e5784c60e0fa271bd487ebc95848"
+        },
+        "run.py": {
+          "kind": "file",
+          "sha256": "b1e3494ed3efa43ae9c1cb8b5da3c34f09971ad3799bafc37bb3f95af6e299a3"
+        }
+      },
+      "entry_count": 4,
+      "excluded_globs": [
+        "**/__pycache__/**",
+        "**/*.pyc"
+      ],
+      "hash_algorithm": "paper-loop-source-tree-v1",
+      "path": "assets/19-ql-mopso/starter",
+      "tree_sha256": "2bf0c5ecb77e90c20f29c565d7a8f4c45b5bd3fdb08c9ed1590136015bcb88e3"
+    },
+    "task": {
+      "path": "assets/19-ql-mopso/TASK.md",
+      "sha256": "112b5f93df4281dfd6fad65509f45dd73c417c712e9498d9fbd6fc7a0433aaa5"
+    }
+  },
+  "benchmark_split": "test",
+  "case_id": "19-ql-mopso",
+  "domain": "paper_loop",
+  "family": "reinforcement-guided-path-planning",
+  "in_base": false,
+  "lifecycle_status": "candidate",
+  "path_base": "domain-root",
+  "schema_version": 1,
+  "visibility": "agent"
+}

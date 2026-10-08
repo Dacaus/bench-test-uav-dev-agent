@@ -1,0 +1,26 @@
+{
+  "algorithm": "ECFDBO with chaotic contraction, smart reflection and attraction-repulsion mutation",
+  "checks": {
+    "best_not_worse_than_initial": true,
+    "decision_bounds_respected": true,
+    "endpoints_preserved": true,
+    "finite_metrics": true,
+    "obstacle_clearance_satisfied": true,
+    "uav_separation_satisfied": true
+  },
+  "metrics": {
+    "best_cost": 36.5719391079029,
+    "force_field_mutations": 104,
+    "initial_best_cost": 357.85720343781446,
+    "iterations": 55,
+    "maximum_path_length": 14.648904978687012,
+    "minimum_obstacle_clearance": 0.26252155090411566,
+    "minimum_uav_separation": 1.319769480174065,
+    "reflected_coordinates": 6688,
+    "relative_improvement": 0.8978029818693923,
+    "smoothness_cost": 7.115515468451014,
+    "total_path_length": 28.547877219197282
+  },
+  "paper": "A Novel Improved Dung Beetle Optimization Algorithm for.pdf",
+  "seed": 20250202
+}

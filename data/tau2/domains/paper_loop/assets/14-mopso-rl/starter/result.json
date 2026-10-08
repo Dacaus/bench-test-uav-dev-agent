@@ -1,0 +1,27 @@
+{
+  "algorithm": "MCMOPSO-RL",
+  "checks": {
+    "all_modes_exercised": true,
+    "archive_nondominated": true,
+    "bounds_respected": true,
+    "finite": true,
+    "q_tables_updated": true
+  },
+  "metrics": {
+    "archive_size": 28,
+    "exploitation_updates": 444,
+    "exploration_updates": 786,
+    "final_hypervolume": 24.26336116043562,
+    "hybrid_updates": 570,
+    "initial_hypervolume": 17.249393986094287,
+    "iterations": 60,
+    "mean_absolute_q": 0.49409952575330696,
+    "minimum_path_length": 1.4115218376300422,
+    "minimum_safety_cost": 0.4765322270900899,
+    "particles": 30,
+    "positive_rewards": 952,
+    "waypoints": 6
+  },
+  "paper": "Multi-objective particle swarm optimization with multi-mode.pdf",
+  "seed": 202514
+}

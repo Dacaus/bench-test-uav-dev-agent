@@ -1,0 +1,25 @@
+{
+  "algorithm": "goal-biased RRT plus dynamically weighted DWA with subgoals",
+  "checks": {
+    "executed_path_collision_free": true,
+    "finite_metrics": true,
+    "global_path_collision_free": true,
+    "goal_reached": true,
+    "world_bounds_respected": true
+  },
+  "metrics": {
+    "dynamic_avoidance_triggers": 14,
+    "executed_path_length": 27.451736111111106,
+    "executed_steps": 80,
+    "final_goal_distance": 0.6347435377539581,
+    "global_path_length": 26.88916485928992,
+    "mean_command_change": 0.13028645833333333,
+    "minimum_clearance": 0.7572329170531116,
+    "raw_rrt_waypoints": 28,
+    "rrt_tree_nodes": 58,
+    "selected_subgoals": 3,
+    "simplified_global_waypoints": 5
+  },
+  "paper": "A hybrid RRT-DWA path planning .pdf",
+  "seed": 20260404
+}

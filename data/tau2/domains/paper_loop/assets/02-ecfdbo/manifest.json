@@ -1,0 +1,49 @@
+{
+  "assets": {
+    "paper": {
+      "path": "assets/02-ecfdbo/paper.pdf",
+      "sha256": "416fbf2205b1e1f4871d4bea5c01ecc163a03d92edcc4533cb96d381d98cfe53"
+    },
+    "starter_candidate": {
+      "entries": {
+        "README.md": {
+          "kind": "file",
+          "sha256": "5c5878807997659e6d7c3894402d50c4ff8b648fa3541c54ab21c97668e89a25"
+        },
+        "execution-graph.svg": {
+          "kind": "file",
+          "sha256": "7f3bd564acf13b7034d1b36c3c1b136c325e2fb75ce87ba39e2d7badc7a5f771"
+        },
+        "result.json": {
+          "kind": "file",
+          "sha256": "6b5f1637533bc57b7d07f97ea805840016736efbf317f8bf707d9280f4a4286f"
+        },
+        "run.py": {
+          "kind": "file",
+          "sha256": "df428b196d8a84067cd4140720ae177cf4527c21324a024cdd0d5369b47d6ce7"
+        }
+      },
+      "entry_count": 4,
+      "excluded_globs": [
+        "**/__pycache__/**",
+        "**/*.pyc"
+      ],
+      "hash_algorithm": "paper-loop-source-tree-v1",
+      "path": "assets/02-ecfdbo/starter",
+      "tree_sha256": "2465970f2b428357dea7b9166cd1e7a6f59b767f76d0b4fc7d41833fc480cc7a"
+    },
+    "task": {
+      "path": "assets/02-ecfdbo/TASK.md",
+      "sha256": "b9a5f822ab71cd4d0be0052cc3ade326f8a6b8fe958c82f7e73af7a683e3724a"
+    }
+  },
+  "benchmark_split": "train",
+  "case_id": "02-ecfdbo",
+  "domain": "paper_loop",
+  "family": "multi-uav-path-optimization",
+  "in_base": true,
+  "lifecycle_status": "ready",
+  "path_base": "domain-root",
+  "schema_version": 1,
+  "visibility": "agent"
+}

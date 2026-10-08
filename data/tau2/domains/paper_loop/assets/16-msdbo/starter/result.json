@@ -1,0 +1,25 @@
+{
+  "algorithm": "MSDBO",
+  "checks": {
+    "best_history_monotone": true,
+    "finite": true,
+    "improved": true,
+    "within_bounds": true
+  },
+  "metrics": {
+    "adaptive_t_accepts": 182,
+    "annealing_accepts": 56,
+    "annealing_uphill_accepts": 27,
+    "dimension": 12,
+    "dynamic_weight_accepts": 2245,
+    "final_best": 2.0291444978062003,
+    "final_position_norm": 1.1998543337700018,
+    "improvement_ratio": 0.982972738234222,
+    "initial_best": 119.17033553125087,
+    "iterations": 110,
+    "osprey_accepts": 123,
+    "population": 40
+  },
+  "paper": "Multi-strategy hybrid adaptive .pdf",
+  "seed": 20251016
+}

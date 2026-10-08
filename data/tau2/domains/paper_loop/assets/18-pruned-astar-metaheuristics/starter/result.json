@@ -1,0 +1,35 @@
+{
+  "algorithm": "Pruned A* seeded constrained DE",
+  "checks": {
+    "astar_found": true,
+    "final_feasible": true,
+    "finite": true,
+    "pruned_reduces_nodes": true,
+    "seed_feasible": true,
+    "seed_retained_or_improved": true,
+    "within_workspace": true
+  },
+  "metrics": {
+    "accepted_trials": 1486,
+    "astar_nodes": 50,
+    "control_points": 6,
+    "evaluations": 5808,
+    "feasible_trials": 219,
+    "final_collisions": 0,
+    "generations": 120,
+    "grid_shape": [
+      20,
+      16,
+      6
+    ],
+    "initial_feasible_candidates": 1,
+    "length_improvement_ratio": 0.0644744068775847,
+    "optimized_path_length": 45.84075406299835,
+    "population": 48,
+    "pruned_nodes": 8,
+    "seed_collisions": 0,
+    "seed_path_length": 49.0
+  },
+  "paper": "Optimized_Path-Planning_in_Continuous_Spaces_for_Unmanned_Aerial_Vehicles_Using_Meta-Heuristics.pdf",
+  "seed": 20201018
+}

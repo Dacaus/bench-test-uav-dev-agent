@@ -1,0 +1,49 @@
+{
+  "assets": {
+    "paper": {
+      "path": "assets/04-rrt-dwa/paper.pdf",
+      "sha256": "a2886bb1fd8dbd624b677695441157eaf0f2b398a1201bd53424cb7570baf048"
+    },
+    "starter_candidate": {
+      "entries": {
+        "README.md": {
+          "kind": "file",
+          "sha256": "84ff645eab50ceab959134032ce7f9ff2f783304f00671c49d741387e993ac29"
+        },
+        "execution-graph.svg": {
+          "kind": "file",
+          "sha256": "0e247d2d45039b7a1588064d8f7c77cf20a2f89d6aeb3acdcebeb071c9ab9933"
+        },
+        "result.json": {
+          "kind": "file",
+          "sha256": "1601f7cc37cec5cf66956a99daa3afe741397546a405153173c6d8385dcf5c4f"
+        },
+        "run.py": {
+          "kind": "file",
+          "sha256": "4676e0846befa57508ca52a23a01bf66e2dd796c6c36c47bb7bec5007ddef142"
+        }
+      },
+      "entry_count": 4,
+      "excluded_globs": [
+        "**/__pycache__/**",
+        "**/*.pyc"
+      ],
+      "hash_algorithm": "paper-loop-source-tree-v1",
+      "path": "assets/04-rrt-dwa/starter",
+      "tree_sha256": "9fa3ec0e2c284f79884aab3d0eac1a64f8c8a54670e8d4edd0711a39334d225f"
+    },
+    "task": {
+      "path": "assets/04-rrt-dwa/TASK.md",
+      "sha256": "95c4b9fcc0343f9e2a2320905c0399baa98efdb5d179c1f756950e722166e8a9"
+    }
+  },
+  "benchmark_split": "train",
+  "case_id": "04-rrt-dwa",
+  "domain": "paper_loop",
+  "family": "hybrid-path-planning",
+  "in_base": true,
+  "lifecycle_status": "ready",
+  "path_base": "domain-root",
+  "schema_version": 1,
+  "visibility": "agent"
+}

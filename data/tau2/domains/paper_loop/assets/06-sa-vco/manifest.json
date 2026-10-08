@@ -1,0 +1,49 @@
+{
+  "assets": {
+    "paper": {
+      "path": "assets/06-sa-vco/paper.pdf",
+      "sha256": "205cffd899b31538bad349e0691c920614935b9a56b8b516d82e7d07fdbf96d5"
+    },
+    "starter_candidate": {
+      "entries": {
+        "README.md": {
+          "kind": "file",
+          "sha256": "849675dcdcb5222751a4b9432583862ac498f1647328a5575c91fff775751ee3"
+        },
+        "execution-graph.svg": {
+          "kind": "file",
+          "sha256": "53426cd351c63d0723ceef087dd8e8ac991216a84e79328ba764fd29f4ef7f8e"
+        },
+        "result.json": {
+          "kind": "file",
+          "sha256": "9cdf9ad8dfaa3e4d34680452193977fcc0761f37914a598f44d45a44d26fd4f7"
+        },
+        "run.py": {
+          "kind": "file",
+          "sha256": "6387c1444a55edae8a356de3ba45e7c1b8819b06811101d2f22bb10cc7f15eaa"
+        }
+      },
+      "entry_count": 4,
+      "excluded_globs": [
+        "**/__pycache__/**",
+        "**/*.pyc"
+      ],
+      "hash_algorithm": "paper-loop-source-tree-v1",
+      "path": "assets/06-sa-vco/starter",
+      "tree_sha256": "2ed21921a266696d5e4976b989188f5225905c670d0f0172e6b263ff3c58baf1"
+    },
+    "task": {
+      "path": "assets/06-sa-vco/TASK.md",
+      "sha256": "7309fc5054d593ebb9fd38fb4a4bae096afae5509a9b534f9fbc83d4e899d4f4"
+    }
+  },
+  "benchmark_split": "train",
+  "case_id": "06-sa-vco",
+  "domain": "paper_loop",
+  "family": "cooperative-route-planning",
+  "in_base": false,
+  "lifecycle_status": "incomplete",
+  "path_base": "domain-root",
+  "schema_version": 1,
+  "visibility": "agent"
+}

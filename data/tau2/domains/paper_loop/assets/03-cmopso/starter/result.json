@@ -1,0 +1,27 @@
+{
+  "algorithm": "CMOPSO pairwise elite competition on ZDT1",
+  "checks": {
+    "decision_bounds_respected": true,
+    "finite_metrics": true,
+    "generational_elite_set_used": true,
+    "igd_not_worse_than_initial": true,
+    "nondominated_front_nonempty": true,
+    "one_competition_per_particle_per_generation": true
+  },
+  "metrics": {
+    "elite_selection_rounds": 65,
+    "final_igd": 0.013662944872810966,
+    "front_spacing_std": 0.021657419363072868,
+    "generations": 65,
+    "initial_igd": 1.4082462930313264,
+    "mutated_variables": 2611,
+    "nondominated_count": 40,
+    "objective_1_max": 1.0,
+    "objective_1_min": 0.0,
+    "objective_2_max": 1.0002213373340247,
+    "objective_2_min": 1.5162649642886974e-05,
+    "pairwise_competitions": 2600
+  },
+  "paper": "A competitive mechanism based multi-objective.pdf",
+  "seed": 20171003
+}

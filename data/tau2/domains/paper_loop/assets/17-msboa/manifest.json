@@ -1,0 +1,49 @@
+{
+  "assets": {
+    "paper": {
+      "path": "assets/17-msboa/paper.pdf",
+      "sha256": "a62c748a565651feb6d4560666b1e08167a47755e1a3324d875a9b6957887d00"
+    },
+    "starter_candidate": {
+      "entries": {
+        "README.md": {
+          "kind": "file",
+          "sha256": "e610220cf3c57d72a523b2d3f98dc7a30661a005e53bf2f805998325741393bc"
+        },
+        "execution-graph.svg": {
+          "kind": "file",
+          "sha256": "34c2e4ce535ef7c6b2241a44164ab59b1e6c1e2e4392b4e7f627bf6fe6a4a5c3"
+        },
+        "result.json": {
+          "kind": "file",
+          "sha256": "c28dc0d88cb6e4055092c7bf862961b7d2720fbbd91407bd8177f6a6a2416d70"
+        },
+        "run.py": {
+          "kind": "file",
+          "sha256": "ea1c92bf5022881e31fecbe85cc5f86884ffd4e5d1b369f4cb918dbcdb82041b"
+        }
+      },
+      "entry_count": 4,
+      "excluded_globs": [
+        "**/__pycache__/**",
+        "**/*.pyc"
+      ],
+      "hash_algorithm": "paper-loop-source-tree-v1",
+      "path": "assets/17-msboa/starter",
+      "tree_sha256": "116a5eeda1b755d164d6d597ca1aa9d79ad6cfecf5c7732578eef122c22d9ffa"
+    },
+    "task": {
+      "path": "assets/17-msboa/TASK.md",
+      "sha256": "fd62c1a1830e33be7a4bbdaf4118b9ddede3af91432b0a0ed321b0b85d42f4a4"
+    }
+  },
+  "benchmark_split": "test",
+  "case_id": "17-msboa",
+  "domain": "paper_loop",
+  "family": "three-dimensional-path-planning",
+  "in_base": false,
+  "lifecycle_status": "candidate",
+  "path_base": "domain-root",
+  "schema_version": 1,
+  "visibility": "agent"
+}

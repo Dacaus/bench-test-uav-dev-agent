@@ -1,0 +1,49 @@
+{
+  "assets": {
+    "paper": {
+      "path": "assets/05-hipso-msos/paper.pdf",
+      "sha256": "90c3057df41fbcf9b541f9c8d4f3793feadafa21c2481abecc9cf0b8fcae2361"
+    },
+    "starter_candidate": {
+      "entries": {
+        "README.md": {
+          "kind": "file",
+          "sha256": "ac422320212bef865086d4b9157cb18092f5fd5da4eb98c952f6832ace9af967"
+        },
+        "execution-graph.svg": {
+          "kind": "file",
+          "sha256": "9f5076fd513e1016499505fd87d7821819bb0c2d14c7c953bab7c47676d03e0f"
+        },
+        "result.json": {
+          "kind": "file",
+          "sha256": "b91d5a66a609c5efb737fd706f1b7ea8cfc48766f2a743396bf050ff757be123"
+        },
+        "run.py": {
+          "kind": "file",
+          "sha256": "82d39bb01d059efeeeb5048ef3fa92d102f94cdb1e9b3719ddc1858dc13bf146"
+        }
+      },
+      "entry_count": 4,
+      "excluded_globs": [
+        "**/__pycache__/**",
+        "**/*.pyc"
+      ],
+      "hash_algorithm": "paper-loop-source-tree-v1",
+      "path": "assets/05-hipso-msos/starter",
+      "tree_sha256": "6891e9a85af615edc7eca302786cbf3db264c48411d5cd63acd889e2054e002e"
+    },
+    "task": {
+      "path": "assets/05-hipso-msos/TASK.md",
+      "sha256": "9770b3a5c7ac5f82ee118f79b487522052e407c5a01c4c2ed9b8deac79cafdfc"
+    }
+  },
+  "benchmark_split": "train",
+  "case_id": "05-hipso-msos",
+  "domain": "paper_loop",
+  "family": "multi-uav-path-planning",
+  "in_base": false,
+  "lifecycle_status": "incomplete",
+  "path_base": "domain-root",
+  "schema_version": 1,
+  "visibility": "agent"
+}

@@ -1,0 +1,34 @@
+{
+  "base": [
+    "01-ifds-ann",
+    "02-ecfdbo",
+    "03-cmopso",
+    "04-rrt-dwa"
+  ],
+  "test": [
+    "07-cooperative-ga",
+    "08-dbo-awoa",
+    "09-dbo",
+    "10-rescue-ensemble",
+    "11-klec",
+    "12-moead",
+    "13-bacohba-hbafoa",
+    "14-mopso-rl",
+    "15-rcdbo",
+    "16-msdbo",
+    "17-msboa",
+    "18-pruned-astar-metaheuristics",
+    "19-ql-mopso",
+    "20-tgals",
+    "21-pvde-mojs",
+    "22-amiso"
+  ],
+  "train": [
+    "01-ifds-ann",
+    "02-ecfdbo",
+    "03-cmopso",
+    "04-rrt-dwa",
+    "05-hipso-msos",
+    "06-sa-vco"
+  ]
+}

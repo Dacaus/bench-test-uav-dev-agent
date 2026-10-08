@@ -1,0 +1,30 @@
+{
+  "algorithm": "Sa-VCO adaptive initialization and three-subpopulation collaborative search",
+  "checks": {
+    "all_uavs_nonempty": true,
+    "best_not_worse_than_initial": true,
+    "every_target_visited_once": true,
+    "finite_metrics": true,
+    "route_count_correct": true
+  },
+  "metrics": {
+    "accepted_offspring": 63,
+    "best_cost": 20.31558373391783,
+    "elite_database_uses": 516,
+    "initial_best_cost": 21.403108751251438,
+    "iterations": 70,
+    "maximum_route_length": 16.56342942832603,
+    "relative_improvement": 0.05081154471403694,
+    "route_length_std": 1.1079943286702603,
+    "route_lengths": [
+      14.076745795103378,
+      16.26175359646806,
+      16.56342942832603
+    ],
+    "targets": 15,
+    "total_route_length": 46.90192881989747,
+    "uavs": 3
+  },
+  "paper": "An adaptive heuristic algorithm with a collaborative search framework for .pdf",
+  "seed": 20250206
+}

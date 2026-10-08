@@ -1,0 +1,30 @@
+{
+  "algorithm": "MSBOA",
+  "checks": {
+    "best_history_monotone": true,
+    "collision_free": true,
+    "finite": true,
+    "improved": true,
+    "within_bounds": true
+  },
+  "metrics": {
+    "centroid_reverse_survivors": 1898,
+    "decision_dimension": 8,
+    "dfdb_nonbest_guides": 97,
+    "evasion_accepts": 163,
+    "final_altitude_cost": 1.376005229758448e-07,
+    "final_collision_segments": 0,
+    "final_cost": 10.985771995260905,
+    "final_path_length": 10.57459402998531,
+    "final_smoothness_cost": 0.4111765892703644,
+    "final_threat_penalty": 0.0,
+    "hunting_accepts": 584,
+    "improvement_ratio": 0.7611261508437299,
+    "initial_best_cost": 45.98984792208906,
+    "initial_collision_free_paths": 3,
+    "iterations": 100,
+    "population": 42
+  },
+  "paper": "Multi-strategy secretary bird optimization algorithm for UAV path planning in complex environment.pdf",
+  "seed": 20261017
+}

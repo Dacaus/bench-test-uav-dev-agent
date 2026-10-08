@@ -1,0 +1,26 @@
+{
+  "algorithm": "RCDBO",
+  "checks": {
+    "best_history_monotone": true,
+    "finite": true,
+    "improved": true,
+    "within_bounds": true
+  },
+  "metrics": {
+    "behavior_accepts": 223,
+    "best_position_norm": 1.532007448654889,
+    "dimension": 10,
+    "final_best": 4.048530840189898,
+    "horizontal_crossover_accepts": 261,
+    "improvement_ratio": 0.9629379863812187,
+    "initial_best": 109.23666700446887,
+    "initial_mean_pairwise_distance": 12.799551208608925,
+    "iterations": 100,
+    "population": 36,
+    "random_walk_accepts": 8,
+    "random_walk_triggers": 9,
+    "vertical_crossover_accepts": 9
+  },
+  "paper": "Multi-strategy cooperative .pdf",
+  "seed": 20241015
+}

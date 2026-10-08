@@ -1,0 +1,29 @@
+{
+  "algorithm": "AMISO core reconstruction on the paper's Sphere benchmark",
+  "checks": {
+    "finite": true,
+    "improved": true,
+    "within_bounds": true
+  },
+  "metrics": {
+    "dimensions": 24,
+    "final_best": 0.0001526214,
+    "initial_best": 10337.9722226951,
+    "initial_to_final_ratio": 67736079.531551,
+    "iterations": 120,
+    "phase_counts": {
+      "exploration": 36,
+      "fight": 27,
+      "food": 25,
+      "mating": 32
+    },
+    "population": 60,
+    "roulette_strategy_calls": [
+      125,
+      1418,
+      77
+    ]
+  },
+  "paper": "基于自适应多策略改进蛇优化算法的多无人机路径规划方法",
+  "seed": 20251022
+}

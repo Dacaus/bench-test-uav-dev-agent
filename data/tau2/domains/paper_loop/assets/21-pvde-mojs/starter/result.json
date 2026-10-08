@@ -1,0 +1,28 @@
+{
+  "algorithm": "serial PVDE-MOJS core reconstruction",
+  "checks": {
+    "archive_is_nondominated": true,
+    "archive_positions_unique": true,
+    "finite": true,
+    "improved": true
+  },
+  "metrics": {
+    "archive_size": 19,
+    "behavior_counts": {
+      "active": 1371,
+      "current": 925,
+      "passive": 1304
+    },
+    "best_objectives": [
+      0.958495,
+      0.08933,
+      0.131076
+    ],
+    "final_weighted_cost": 0.486716,
+    "initial_weighted_cost": 1.298274,
+    "iterations": 75,
+    "population": 48
+  },
+  "paper": "UAV Path Planning for Forest Firefighting Using Optimized Multi-Objective Jellyfish Search Algorithm",
+  "seed": 20251021
+}

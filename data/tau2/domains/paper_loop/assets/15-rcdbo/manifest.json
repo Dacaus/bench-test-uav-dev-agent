@@ -1,0 +1,49 @@
+{
+  "assets": {
+    "paper": {
+      "path": "assets/15-rcdbo/paper.pdf",
+      "sha256": "fdeb2cedd599ded0cba4895a80e1a0a4520d1e13af73b7533e1a9f12bf3f1ec6"
+    },
+    "starter_candidate": {
+      "entries": {
+        "README.md": {
+          "kind": "file",
+          "sha256": "daae7a2ced9bcb01774bd6f18128eaf56192d1d1e5de73a9f96437df89902ff0"
+        },
+        "execution-graph.svg": {
+          "kind": "file",
+          "sha256": "b4831ddced42607c2df0c89a8e1dab545fa5aca0f2285a3be4cc3276469c9ba0"
+        },
+        "result.json": {
+          "kind": "file",
+          "sha256": "8c8a3ff3068b3cf39beed47a56c60118eeab5ec0fd994b649a81071a90d94f00"
+        },
+        "run.py": {
+          "kind": "file",
+          "sha256": "355bf8ce2b6698930b3fa205fd4d79c830763eece53ed6f91d44dfc2313f2e50"
+        }
+      },
+      "entry_count": 4,
+      "excluded_globs": [
+        "**/__pycache__/**",
+        "**/*.pyc"
+      ],
+      "hash_algorithm": "paper-loop-source-tree-v1",
+      "path": "assets/15-rcdbo/starter",
+      "tree_sha256": "f22da4ee2f308cfc19bf3735e85181dc294ce5b29215d5f72dc848844e30c179"
+    },
+    "task": {
+      "path": "assets/15-rcdbo/TASK.md",
+      "sha256": "e7a9b5ee7d69147c3017f12420891ce0420c3afef5143e0ba4b3ca6134b7c383"
+    }
+  },
+  "benchmark_split": "test",
+  "case_id": "15-rcdbo",
+  "domain": "paper_loop",
+  "family": "continuous-metaheuristic",
+  "in_base": false,
+  "lifecycle_status": "candidate",
+  "path_base": "domain-root",
+  "schema_version": 1,
+  "visibility": "agent"
+}

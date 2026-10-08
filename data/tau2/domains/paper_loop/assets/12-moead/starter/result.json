@@ -1,0 +1,25 @@
+{
+  "algorithm": "MOEA/D with Tchebycheff decomposition",
+  "checks": {
+    "archive_nondominated": true,
+    "bounds_respected": true,
+    "finite": true,
+    "ideal_componentwise_nonincreasing": true
+  },
+  "metrics": {
+    "archive_size": 100,
+    "decision_dimensions": 10,
+    "final_hypervolume": 1.0966171880961155,
+    "final_igd": 0.005387404090902591,
+    "generations": 90,
+    "ideal_f1": 0.0,
+    "ideal_f2": 0.008689580010900701,
+    "initial_hypervolume": 0.0,
+    "initial_igd": 2.132578948390641,
+    "neighbor_replacements": 2647,
+    "neighborhood_size": 7,
+    "subproblems": 41
+  },
+  "paper": "MOEAD A Multiobjective Evolutionary Algorithm.pdf",
+  "seed": 202512
+}

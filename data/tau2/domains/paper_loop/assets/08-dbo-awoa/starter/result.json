@@ -1,0 +1,23 @@
+{
+  "algorithm": "DBO-AWOA",
+  "checks": {
+    "all_branches_exercised": true,
+    "best_so_far_nonincreasing": true,
+    "bounds_respected": true,
+    "finite": true
+  },
+  "metrics": {
+    "best_distance_to_optimum": 1.5711266488721813,
+    "dbo_encircle_updates": 870,
+    "dimensions": 8,
+    "final_best": 3.5424663767528597,
+    "improvement": 8.531283743783286,
+    "initial_best": 12.073750120536145,
+    "iterations": 70,
+    "population": 30,
+    "random_search_updates": 173,
+    "spiral_updates": 1057
+  },
+  "paper": "DBO-AWOA An Adaptive Whale Optimization Algorithm for.pdf",
+  "seed": 202508
+}

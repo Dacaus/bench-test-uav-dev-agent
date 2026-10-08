@@ -1,0 +1,49 @@
+{
+  "assets": {
+    "paper": {
+      "path": "assets/08-dbo-awoa/paper.pdf",
+      "sha256": "5fe96e08fd74a634e2524e46cadcabc215da0c3ecf2e8dd2bc85f4db9a3880ee"
+    },
+    "starter_candidate": {
+      "entries": {
+        "README.md": {
+          "kind": "file",
+          "sha256": "1442d838e72ec777df1edf7fc0e46ce983053c4c011a77bf3d54668ec0f7f7c7"
+        },
+        "execution-graph.svg": {
+          "kind": "file",
+          "sha256": "289c87dbae894c62d84e1f1a8b325d469ad3c05be141b3c42020c0cff357f660"
+        },
+        "result.json": {
+          "kind": "file",
+          "sha256": "e52f1953ce6911603c2785b2af6c37f84caaa534118e7d2b008239e6e1b27059"
+        },
+        "run.py": {
+          "kind": "file",
+          "sha256": "35f5d5b728716875cdb185dbb36a018c3abc9f5150f2b0a9885fa9d639e90693"
+        }
+      },
+      "entry_count": 4,
+      "excluded_globs": [
+        "**/__pycache__/**",
+        "**/*.pyc"
+      ],
+      "hash_algorithm": "paper-loop-source-tree-v1",
+      "path": "assets/08-dbo-awoa/starter",
+      "tree_sha256": "6ea3a63ecea3705f5c448cb42f64883a4eda4f1093761b575f21b9d28e27454b"
+    },
+    "task": {
+      "path": "assets/08-dbo-awoa/TASK.md",
+      "sha256": "af8c94d614da674e7dda8ac8db94e9c0c1a7b66e067cc7817e98ccde9f1fe6a0"
+    }
+  },
+  "benchmark_split": "test",
+  "case_id": "08-dbo-awoa",
+  "domain": "paper_loop",
+  "family": "continuous-metaheuristic",
+  "in_base": false,
+  "lifecycle_status": "candidate",
+  "path_base": "domain-root",
+  "schema_version": 1,
+  "visibility": "agent"
+}

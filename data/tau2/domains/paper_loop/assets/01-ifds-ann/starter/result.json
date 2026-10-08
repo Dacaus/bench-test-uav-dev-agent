@@ -1,0 +1,24 @@
+{
+  "algorithm": "ANN-guided interfered fluid dynamical system (IFDS) core",
+  "checks": {
+    "ann_parameters_bounded": true,
+    "collision_free": true,
+    "finite_metrics": true,
+    "goal_reached": true
+  },
+  "metrics": {
+    "final_goal_distance": 0.0,
+    "mean_repulsion_coefficient": 1.668093106013467,
+    "mean_tangential_coefficient": 1.594084174980007,
+    "minimum_dynamic_clearance": 0.3205831568347153,
+    "nearest_obstacle_counts": [
+      54,
+      51
+    ],
+    "path_length": 15.713019426406396,
+    "steps": 106,
+    "straight_line_length": 14.84082207965583
+  },
+  "paper": "3D real-time dynamic path planning for UAV based on improved interfered fluid dynamical system and artificial neural network.pdf",
+  "seed": 20240101
+}

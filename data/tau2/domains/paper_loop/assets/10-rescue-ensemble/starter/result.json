@@ -1,0 +1,22 @@
+{
+  "algorithm": "Rescue Ensemble with FPSO",
+  "checks": {
+    "finite": true,
+    "simulator_advanced": true,
+    "targets_distinct_within_cycle": true,
+    "valid_state_codes": true
+  },
+  "metrics": {
+    "aircraft_assignments": 11,
+    "burned_cells": 9,
+    "cycles": 4,
+    "final_burning_cells": 0,
+    "first_population_best_score": 0.18027756377319945,
+    "grid_cells": 225,
+    "initial_burning_cells": 9,
+    "last_optimized_score": 0.25312538460284856,
+    "rescued_cells": 11
+  },
+  "paper": "Ensemble framework by using nature inspired algorithms for the early-stage forest fire rescue — A case study of dynamic optimization problems.pdf",
+  "seed": 202510
+}

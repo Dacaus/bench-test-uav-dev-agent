@@ -1,0 +1,31 @@
+{
+  "algorithm": "HIPSO-MSOS with timestamp segmentation and cubic B-spline smoothing",
+  "checks": {
+    "altitude_constraint_satisfied": true,
+    "best_not_worse_than_initial": true,
+    "common_timestamp_count": true,
+    "endpoints_preserved": true,
+    "finite_metrics": true,
+    "obstacle_clearance_positive": true,
+    "uav_separation_satisfied": true
+  },
+  "metrics": {
+    "best_cost": 30.023815464985404,
+    "commensalism_acceptances": 604,
+    "common_arrival_time": 6.0,
+    "initial_best_cost": 245.4080877444717,
+    "iterations": 60,
+    "maximum_altitude": 1.3947325739119074,
+    "maximum_raw_path_length": 12.20304030755808,
+    "metropolis_acceptances": 232,
+    "minimum_altitude": 1.0,
+    "minimum_obstacle_clearance": 0.19937342565330463,
+    "minimum_uav_separation": 1.444997982215274,
+    "relative_improvement": 0.8776575957991761,
+    "total_bspline_path_length": 24.056947434230608,
+    "total_raw_path_length": 24.24559129882492,
+    "turning_angle_sum": 1.9829064376445882
+  },
+  "paper": "A novel hybrid particle swarm optimization for multi-UAV cooperate path planning.pdf",
+  "seed": 20210305
+}

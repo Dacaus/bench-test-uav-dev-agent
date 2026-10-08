@@ -1,0 +1,25 @@
+{
+  "algorithm": "Knowledge Learning Differential Evolution (KLDE)",
+  "checks": {
+    "best_so_far_nonincreasing": true,
+    "bounds_respected": true,
+    "finite": true,
+    "knowledge_was_learned": true,
+    "knowledge_was_used": true
+  },
+  "metrics": {
+    "dimensions": 6,
+    "distance_to_known_optimum": 0.014998110354721067,
+    "final_best": 0.0005848080678979374,
+    "final_training_mse": 2.2485489380634385e-06,
+    "generations": 55,
+    "improvement": 10.506028569926867,
+    "initial_best": 10.506613377994766,
+    "knowledge_guided_trials": 882,
+    "knowledge_training_rounds": 55,
+    "population": 32,
+    "successful_experiences": 659
+  },
+  "paper": "Knowledge_Learning_for_Evolutionary_Computation.pdf",
+  "seed": 202511
+}

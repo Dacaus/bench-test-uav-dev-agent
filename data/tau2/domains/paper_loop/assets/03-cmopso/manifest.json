@@ -1,0 +1,49 @@
+{
+  "assets": {
+    "paper": {
+      "path": "assets/03-cmopso/paper.pdf",
+      "sha256": "0d6e83c16a9b3b89a8e61f4caa0857e331c04eeae45fb1faf350404ce93bda4c"
+    },
+    "starter_candidate": {
+      "entries": {
+        "README.md": {
+          "kind": "file",
+          "sha256": "0801dc71f6c79e366750dd487f1b78244e0f09093ba5e28424a71d59e2fbe254"
+        },
+        "execution-graph.svg": {
+          "kind": "file",
+          "sha256": "3d83d5037fdadfcd40bee5b22f785f8c1ff615464de5fd635154229b53644d67"
+        },
+        "result.json": {
+          "kind": "file",
+          "sha256": "37d25d01e0b476f4aa17348bde8c4a1c4a958d406c8646676d9f31c468c47f44"
+        },
+        "run.py": {
+          "kind": "file",
+          "sha256": "3ec43f1aae543000733a7c8f47a5421ffe874d5ae37d0fcaa3f0d14162998629"
+        }
+      },
+      "entry_count": 4,
+      "excluded_globs": [
+        "**/__pycache__/**",
+        "**/*.pyc"
+      ],
+      "hash_algorithm": "paper-loop-source-tree-v1",
+      "path": "assets/03-cmopso/starter",
+      "tree_sha256": "bb01f3a59c619759302661a69f603455bc31cd4d1cdef82da81d178e74d164db"
+    },
+    "task": {
+      "path": "assets/03-cmopso/TASK.md",
+      "sha256": "c060a32371de7366856200535b53e58d0a44ff9d436811c27a2b2bcbe5b4cc56"
+    }
+  },
+  "benchmark_split": "train",
+  "case_id": "03-cmopso",
+  "domain": "paper_loop",
+  "family": "multi-objective-optimization",
+  "in_base": true,
+  "lifecycle_status": "ready",
+  "path_base": "domain-root",
+  "schema_version": 1,
+  "visibility": "agent"
+}

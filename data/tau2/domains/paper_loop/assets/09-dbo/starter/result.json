@@ -1,0 +1,25 @@
+{
+  "algorithm": "Dung Beetle Optimizer (DBO)",
+  "checks": {
+    "best_so_far_nonincreasing": true,
+    "bounds_respected": true,
+    "finite": true,
+    "role_counts_sum_to_population": true
+  },
+  "metrics": {
+    "brood_count": 6,
+    "dance_updates": 50,
+    "dimensions": 6,
+    "distance_to_known_optimum": 0.0008030229764189528,
+    "final_best": 1.8539312823882324e-06,
+    "forager_count": 7,
+    "improvement": 10.126945325094729,
+    "initial_best": 10.126947179026011,
+    "iterations": 80,
+    "population": 30,
+    "roller_count": 6,
+    "thief_count": 11
+  },
+  "paper": "Dung beetle optimizer a new meta-heuristic algorithm for global optimization.pdf",
+  "seed": 202509
+}

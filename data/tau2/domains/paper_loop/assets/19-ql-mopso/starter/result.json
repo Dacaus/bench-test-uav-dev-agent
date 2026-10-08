@@ -1,0 +1,30 @@
+{
+  "algorithm": "QL-MOPSO core reconstruction",
+  "checks": {
+    "finite": true,
+    "guided_seed_preserved": true,
+    "mopso_updates_exercised": true,
+    "q_path_every_step_collision_free": true,
+    "q_path_no_corner_cutting": true,
+    "q_path_reaches_goal": true
+  },
+  "metrics": {
+    "accepted_personal_best_updates": 118,
+    "archive_size": 32,
+    "best_objectives": [
+      0.103464,
+      0.098173,
+      0.0,
+      0.071754,
+      0.0
+    ],
+    "final_weighted_cost": 0.0638,
+    "initial_weighted_cost": 0.0638,
+    "q_path_diagonal_steps": 6,
+    "q_path_nodes": 17,
+    "q_start_value": 35.594948,
+    "strict_weighted_personal_best_improvements": 118
+  },
+  "paper": "Reinforcement Learning-Guided Particle Swarm Optimization",
+  "seed": 20251019
+}

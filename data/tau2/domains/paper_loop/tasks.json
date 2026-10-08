@@ -1,0 +1,1718 @@
+[
+  {
+    "description": {
+      "notes": "family=dynamic-path-planning; lifecycle_status=ready; split=train; in_base=true",
+      "purpose": "Evaluate a paper-backed NumPy reconstruction for 01-ifds-ann：IFDS–ANN 三维动态避障.",
+      "relevant_policies": "policy.md"
+    },
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "env_assertions": [
+        {
+          "arguments": {
+            "case_id": "01-ifds-ann"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_checks_passed",
+          "message": "The submitted candidate must pass the public deterministic checks."
+        },
+        {
+          "arguments": {
+            "case_id": "01-ifds-ann"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "independent_oracle_passed",
+          "message": "The submitted candidate must pass the independent semantic oracle."
+        },
+        {
+          "arguments": {
+            "case_id": "01-ifds-ann"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_immutable",
+          "message": "The submitted candidate must remain unchanged while it is evaluated."
+        }
+      ],
+      "nl_assertions": [],
+      "reward_basis": [
+        "ENV_ASSERTION"
+      ]
+    },
+    "id": "01-ifds-ann",
+    "initial_state": {
+      "initialization_actions": null,
+      "initialization_data": {
+        "agent_data": {
+          "asset_root": ".",
+          "case_id": "01-ifds-ann",
+          "family": "dynamic-path-planning",
+          "lifecycle_status": "ready",
+          "manifest_path": "assets/01-ifds-ann/manifest.json",
+          "paper_path": "assets/01-ifds-ann/paper.pdf",
+          "paper_sha256": "fe005d7ef9641965dbef34f58d728113befbd699e5990c4dbb747efe95a5a7f9",
+          "path_base": "domain-root",
+          "task_path": "assets/01-ifds-ann/TASK.md",
+          "task_sha256": "28a70e65963d9041d635849940fcc6461a96bdc585e1b4672a64738e342737b3",
+          "workspace_hash_algorithm": "paper-loop-source-tree-v1",
+          "workspace_source_path": "assets/01-ifds-ann/starter",
+          "workspace_source_sha256": "730c7596368d483cebbade19020db5706fc8cbd6a0511675890e134562b3fc6b"
+        },
+        "user_data": null
+      },
+      "message_history": null
+    },
+    "ticket": "# 01-ifds-ann：IFDS–ANN 三维动态避障\n\n本案例属于动态三维路径规划。需要以论文《3D real-time dynamic path planning for UAV based on improved interfered fluid dynamical system and artificial neural network》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `fe005d7ef9641965dbef34f58d728113befbd699e5990c4dbb747efe95a5a7f9`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对球形障碍函数、IFDS 扰动矩阵、移动障碍速度补偿、ANN 前向推理与航迹积分。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+    "user_scenario": {
+      "instructions": {
+        "domain": "paper_loop",
+        "known_info": "The paper, task ticket, starter candidate, and their SHA-256 digests are stored under this task's domain-root asset directory.",
+        "reason_for_call": "01-ifds-ann：IFDS–ANN 三维动态避障",
+        "task_instructions": "# 01-ifds-ann：IFDS–ANN 三维动态避障\n\n本案例属于动态三维路径规划。需要以论文《3D real-time dynamic path planning for UAV based on improved interfered fluid dynamical system and artificial neural network》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `fe005d7ef9641965dbef34f58d728113befbd699e5990c4dbb747efe95a5a7f9`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对球形障碍函数、IFDS 扰动矩阵、移动障碍速度补偿、ANN 前向推理与航迹积分。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+        "unknown_info": "Independent-oracle fixtures and assertions are private and must not be requested."
+      },
+      "persona": "A benchmark operator requesting an auditable paper-backed implementation."
+    }
+  },
+  {
+    "description": {
+      "notes": "family=multi-uav-path-optimization; lifecycle_status=ready; split=train; in_base=true",
+      "purpose": "Evaluate a paper-backed NumPy reconstruction for 02-ecfdbo：ECFDBO 协同三维路径优化.",
+      "relevant_policies": "policy.md"
+    },
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "env_assertions": [
+        {
+          "arguments": {
+            "case_id": "02-ecfdbo"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_checks_passed",
+          "message": "The submitted candidate must pass the public deterministic checks."
+        },
+        {
+          "arguments": {
+            "case_id": "02-ecfdbo"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "independent_oracle_passed",
+          "message": "The submitted candidate must pass the independent semantic oracle."
+        },
+        {
+          "arguments": {
+            "case_id": "02-ecfdbo"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_immutable",
+          "message": "The submitted candidate must remain unchanged while it is evaluated."
+        }
+      ],
+      "nl_assertions": [],
+      "reward_basis": [
+        "ENV_ASSERTION"
+      ]
+    },
+    "id": "02-ecfdbo",
+    "initial_state": {
+      "initialization_actions": null,
+      "initialization_data": {
+        "agent_data": {
+          "asset_root": ".",
+          "case_id": "02-ecfdbo",
+          "family": "multi-uav-path-optimization",
+          "lifecycle_status": "ready",
+          "manifest_path": "assets/02-ecfdbo/manifest.json",
+          "paper_path": "assets/02-ecfdbo/paper.pdf",
+          "paper_sha256": "416fbf2205b1e1f4871d4bea5c01ecc163a03d92edcc4533cb96d381d98cfe53",
+          "path_base": "domain-root",
+          "task_path": "assets/02-ecfdbo/TASK.md",
+          "task_sha256": "b9a5f822ab71cd4d0be0052cc3ade326f8a6b8fe958c82f7e73af7a683e3724a",
+          "workspace_hash_algorithm": "paper-loop-source-tree-v1",
+          "workspace_source_path": "assets/02-ecfdbo/starter",
+          "workspace_source_sha256": "2465970f2b428357dea7b9166cd1e7a6f59b767f76d0b4fc7d41833fc480cc7a"
+        },
+        "user_data": null
+      },
+      "message_history": null
+    },
+    "ticket": "# 02-ecfdbo：ECFDBO 协同三维路径优化\n\n本案例属于多无人机协同路径优化。需要以论文《A Novel Improved Dung Beetle Optimization Algorithm for》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `416fbf2205b1e1f4871d4bea5c01ecc163a03d92edcc4533cb96d381d98cfe53`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对混沌初始化、收缩边界、智能反射、引斥力变异以及多机安全约束。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+    "user_scenario": {
+      "instructions": {
+        "domain": "paper_loop",
+        "known_info": "The paper, task ticket, starter candidate, and their SHA-256 digests are stored under this task's domain-root asset directory.",
+        "reason_for_call": "02-ecfdbo：ECFDBO 协同三维路径优化",
+        "task_instructions": "# 02-ecfdbo：ECFDBO 协同三维路径优化\n\n本案例属于多无人机协同路径优化。需要以论文《A Novel Improved Dung Beetle Optimization Algorithm for》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `416fbf2205b1e1f4871d4bea5c01ecc163a03d92edcc4533cb96d381d98cfe53`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对混沌初始化、收缩边界、智能反射、引斥力变异以及多机安全约束。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+        "unknown_info": "Independent-oracle fixtures and assertions are private and must not be requested."
+      },
+      "persona": "A benchmark operator requesting an auditable paper-backed implementation."
+    }
+  },
+  {
+    "description": {
+      "notes": "family=multi-objective-optimization; lifecycle_status=ready; split=train; in_base=true",
+      "purpose": "Evaluate a paper-backed NumPy reconstruction for 03-cmopso：CMOPSO 竞争式多目标粒子群.",
+      "relevant_policies": "policy.md"
+    },
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "env_assertions": [
+        {
+          "arguments": {
+            "case_id": "03-cmopso"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_checks_passed",
+          "message": "The submitted candidate must pass the public deterministic checks."
+        },
+        {
+          "arguments": {
+            "case_id": "03-cmopso"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "independent_oracle_passed",
+          "message": "The submitted candidate must pass the independent semantic oracle."
+        },
+        {
+          "arguments": {
+            "case_id": "03-cmopso"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_immutable",
+          "message": "The submitted candidate must remain unchanged while it is evaluated."
+        }
+      ],
+      "nl_assertions": [],
+      "reward_basis": [
+        "ENV_ASSERTION"
+      ]
+    },
+    "id": "03-cmopso",
+    "initial_state": {
+      "initialization_actions": null,
+      "initialization_data": {
+        "agent_data": {
+          "asset_root": ".",
+          "case_id": "03-cmopso",
+          "family": "multi-objective-optimization",
+          "lifecycle_status": "ready",
+          "manifest_path": "assets/03-cmopso/manifest.json",
+          "paper_path": "assets/03-cmopso/paper.pdf",
+          "paper_sha256": "0d6e83c16a9b3b89a8e61f4caa0857e331c04eeae45fb1faf350404ce93bda4c",
+          "path_base": "domain-root",
+          "task_path": "assets/03-cmopso/TASK.md",
+          "task_sha256": "c060a32371de7366856200535b53e58d0a44ff9d436811c27a2b2bcbe5b4cc56",
+          "workspace_hash_algorithm": "paper-loop-source-tree-v1",
+          "workspace_source_path": "assets/03-cmopso/starter",
+          "workspace_source_sha256": "bb01f3a59c619759302661a69f603455bc31cd4d1cdef82da81d178e74d164db"
+        },
+        "user_data": null
+      },
+      "message_history": null
+    },
+    "ticket": "# 03-cmopso：CMOPSO 竞争式多目标粒子群\n\n本案例属于多目标进化优化。需要以论文《A competitive mechanism based multi-objective》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `0d6e83c16a9b3b89a8e61f4caa0857e331c04eeae45fb1faf350404ce93bda4c`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对当代精英选择、粒子两两竞争、学习更新和非支配环境选择。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+    "user_scenario": {
+      "instructions": {
+        "domain": "paper_loop",
+        "known_info": "The paper, task ticket, starter candidate, and their SHA-256 digests are stored under this task's domain-root asset directory.",
+        "reason_for_call": "03-cmopso：CMOPSO 竞争式多目标粒子群",
+        "task_instructions": "# 03-cmopso：CMOPSO 竞争式多目标粒子群\n\n本案例属于多目标进化优化。需要以论文《A competitive mechanism based multi-objective》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `0d6e83c16a9b3b89a8e61f4caa0857e331c04eeae45fb1faf350404ce93bda4c`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对当代精英选择、粒子两两竞争、学习更新和非支配环境选择。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+        "unknown_info": "Independent-oracle fixtures and assertions are private and must not be requested."
+      },
+      "persona": "A benchmark operator requesting an auditable paper-backed implementation."
+    }
+  },
+  {
+    "description": {
+      "notes": "family=hybrid-path-planning; lifecycle_status=ready; split=train; in_base=true",
+      "purpose": "Evaluate a paper-backed NumPy reconstruction for 04-rrt-dwa：RRT–DWA 动态环境混合规划.",
+      "relevant_policies": "policy.md"
+    },
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "env_assertions": [
+        {
+          "arguments": {
+            "case_id": "04-rrt-dwa"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_checks_passed",
+          "message": "The submitted candidate must pass the public deterministic checks."
+        },
+        {
+          "arguments": {
+            "case_id": "04-rrt-dwa"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "independent_oracle_passed",
+          "message": "The submitted candidate must pass the independent semantic oracle."
+        },
+        {
+          "arguments": {
+            "case_id": "04-rrt-dwa"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_immutable",
+          "message": "The submitted candidate must remain unchanged while it is evaluated."
+        }
+      ],
+      "nl_assertions": [],
+      "reward_basis": [
+        "ENV_ASSERTION"
+      ]
+    },
+    "id": "04-rrt-dwa",
+    "initial_state": {
+      "initialization_actions": null,
+      "initialization_data": {
+        "agent_data": {
+          "asset_root": ".",
+          "case_id": "04-rrt-dwa",
+          "family": "hybrid-path-planning",
+          "lifecycle_status": "ready",
+          "manifest_path": "assets/04-rrt-dwa/manifest.json",
+          "paper_path": "assets/04-rrt-dwa/paper.pdf",
+          "paper_sha256": "a2886bb1fd8dbd624b677695441157eaf0f2b398a1201bd53424cb7570baf048",
+          "path_base": "domain-root",
+          "task_path": "assets/04-rrt-dwa/TASK.md",
+          "task_sha256": "95c4b9fcc0343f9e2a2320905c0399baa98efdb5d179c1f756950e722166e8a9",
+          "workspace_hash_algorithm": "paper-loop-source-tree-v1",
+          "workspace_source_path": "assets/04-rrt-dwa/starter",
+          "workspace_source_sha256": "9fa3ec0e2c284f79884aab3d0eac1a64f8c8a54670e8d4edd0711a39334d225f"
+        },
+        "user_data": null
+      },
+      "message_history": null
+    },
+    "ticket": "# 04-rrt-dwa：RRT–DWA 动态环境混合规划\n\n本案例属于全局与局部混合路径规划。需要以论文《A hybrid RRT-DWA path planning 》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `a2886bb1fd8dbd624b677695441157eaf0f2b398a1201bd53424cb7570baf048`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对全局 RRT、关键子目标、动态窗口采样、障碍预测和局部控制。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+    "user_scenario": {
+      "instructions": {
+        "domain": "paper_loop",
+        "known_info": "The paper, task ticket, starter candidate, and their SHA-256 digests are stored under this task's domain-root asset directory.",
+        "reason_for_call": "04-rrt-dwa：RRT–DWA 动态环境混合规划",
+        "task_instructions": "# 04-rrt-dwa：RRT–DWA 动态环境混合规划\n\n本案例属于全局与局部混合路径规划。需要以论文《A hybrid RRT-DWA path planning 》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `a2886bb1fd8dbd624b677695441157eaf0f2b398a1201bd53424cb7570baf048`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对全局 RRT、关键子目标、动态窗口采样、障碍预测和局部控制。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+        "unknown_info": "Independent-oracle fixtures and assertions are private and must not be requested."
+      },
+      "persona": "A benchmark operator requesting an auditable paper-backed implementation."
+    }
+  },
+  {
+    "description": {
+      "notes": "family=multi-uav-path-planning; lifecycle_status=incomplete; split=train; in_base=false",
+      "purpose": "Evaluate a paper-backed NumPy reconstruction for 05-hipso-msos：HIPSO–MSOS 多机协同路径.",
+      "relevant_policies": "policy.md"
+    },
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "env_assertions": [
+        {
+          "arguments": {
+            "case_id": "05-hipso-msos"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_checks_passed",
+          "message": "The submitted candidate must pass the public deterministic checks."
+        },
+        {
+          "arguments": {
+            "case_id": "05-hipso-msos"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "independent_oracle_passed",
+          "message": "The submitted candidate must pass the independent semantic oracle."
+        },
+        {
+          "arguments": {
+            "case_id": "05-hipso-msos"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_immutable",
+          "message": "The submitted candidate must remain unchanged while it is evaluated."
+        }
+      ],
+      "nl_assertions": [],
+      "reward_basis": [
+        "ENV_ASSERTION"
+      ]
+    },
+    "id": "05-hipso-msos",
+    "initial_state": {
+      "initialization_actions": null,
+      "initialization_data": {
+        "agent_data": {
+          "asset_root": ".",
+          "case_id": "05-hipso-msos",
+          "family": "multi-uav-path-planning",
+          "lifecycle_status": "incomplete",
+          "manifest_path": "assets/05-hipso-msos/manifest.json",
+          "paper_path": "assets/05-hipso-msos/paper.pdf",
+          "paper_sha256": "90c3057df41fbcf9b541f9c8d4f3793feadafa21c2481abecc9cf0b8fcae2361",
+          "path_base": "domain-root",
+          "task_path": "assets/05-hipso-msos/TASK.md",
+          "task_sha256": "9770b3a5c7ac5f82ee118f79b487522052e407c5a01c4c2ed9b8deac79cafdfc",
+          "workspace_hash_algorithm": "paper-loop-source-tree-v1",
+          "workspace_source_path": "assets/05-hipso-msos/starter",
+          "workspace_source_sha256": "6891e9a85af615edc7eca302786cbf3db264c48411d5cd63acd889e2054e002e"
+        },
+        "user_data": null
+      },
+      "message_history": null
+    },
+    "ticket": "# 05-hipso-msos：HIPSO–MSOS 多机协同路径\n\n本案例属于多无人机协同路径规划。需要以论文《A novel hybrid particle swarm optimization for multi-UAV cooperate path planning》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `90c3057df41fbcf9b541f9c8d4f3793feadafa21c2481abecc9cf0b8fcae2361`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对时间戳分段、改进粒子群、MSOS 共栖操作和 B 样条平滑。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+    "user_scenario": {
+      "instructions": {
+        "domain": "paper_loop",
+        "known_info": "The paper, task ticket, starter candidate, and their SHA-256 digests are stored under this task's domain-root asset directory.",
+        "reason_for_call": "05-hipso-msos：HIPSO–MSOS 多机协同路径",
+        "task_instructions": "# 05-hipso-msos：HIPSO–MSOS 多机协同路径\n\n本案例属于多无人机协同路径规划。需要以论文《A novel hybrid particle swarm optimization for multi-UAV cooperate path planning》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `90c3057df41fbcf9b541f9c8d4f3793feadafa21c2481abecc9cf0b8fcae2361`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对时间戳分段、改进粒子群、MSOS 共栖操作和 B 样条平滑。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+        "unknown_info": "Independent-oracle fixtures and assertions are private and must not be requested."
+      },
+      "persona": "A benchmark operator requesting an auditable paper-backed implementation."
+    }
+  },
+  {
+    "description": {
+      "notes": "family=cooperative-route-planning; lifecycle_status=incomplete; split=train; in_base=false",
+      "purpose": "Evaluate a paper-backed NumPy reconstruction for 06-sa-vco：Sa-VCO 协同巡检搜索.",
+      "relevant_policies": "policy.md"
+    },
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "env_assertions": [
+        {
+          "arguments": {
+            "case_id": "06-sa-vco"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_checks_passed",
+          "message": "The submitted candidate must pass the public deterministic checks."
+        },
+        {
+          "arguments": {
+            "case_id": "06-sa-vco"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "independent_oracle_passed",
+          "message": "The submitted candidate must pass the independent semantic oracle."
+        },
+        {
+          "arguments": {
+            "case_id": "06-sa-vco"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_immutable",
+          "message": "The submitted candidate must remain unchanged while it is evaluated."
+        }
+      ],
+      "nl_assertions": [],
+      "reward_basis": [
+        "ENV_ASSERTION"
+      ]
+    },
+    "id": "06-sa-vco",
+    "initial_state": {
+      "initialization_actions": null,
+      "initialization_data": {
+        "agent_data": {
+          "asset_root": ".",
+          "case_id": "06-sa-vco",
+          "family": "cooperative-route-planning",
+          "lifecycle_status": "incomplete",
+          "manifest_path": "assets/06-sa-vco/manifest.json",
+          "paper_path": "assets/06-sa-vco/paper.pdf",
+          "paper_sha256": "205cffd899b31538bad349e0691c920614935b9a56b8b516d82e7d07fdbf96d5",
+          "path_base": "domain-root",
+          "task_path": "assets/06-sa-vco/TASK.md",
+          "task_sha256": "7309fc5054d593ebb9fd38fb4a4bae096afae5509a9b534f9fbc83d4e899d4f4",
+          "workspace_hash_algorithm": "paper-loop-source-tree-v1",
+          "workspace_source_path": "assets/06-sa-vco/starter",
+          "workspace_source_sha256": "2ed21921a266696d5e4976b989188f5225905c670d0f0172e6b263ff3c58baf1"
+        },
+        "user_data": null
+      },
+      "message_history": null
+    },
+    "ticket": "# 06-sa-vco：Sa-VCO 协同巡检搜索\n\n本案例属于协同巡检与路线规划。需要以论文《An adaptive heuristic algorithm with a collaborative search framework for 》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `205cffd899b31538bad349e0691c920614935b9a56b8b516d82e7d07fdbf96d5`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对极坐标聚类、随机贪婪初始化、质量分群、精英信息库和协同搜索。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+    "user_scenario": {
+      "instructions": {
+        "domain": "paper_loop",
+        "known_info": "The paper, task ticket, starter candidate, and their SHA-256 digests are stored under this task's domain-root asset directory.",
+        "reason_for_call": "06-sa-vco：Sa-VCO 协同巡检搜索",
+        "task_instructions": "# 06-sa-vco：Sa-VCO 协同巡检搜索\n\n本案例属于协同巡检与路线规划。需要以论文《An adaptive heuristic algorithm with a collaborative search framework for 》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `205cffd899b31538bad349e0691c920614935b9a56b8b516d82e7d07fdbf96d5`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对极坐标聚类、随机贪婪初始化、质量分群、精英信息库和协同搜索。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+        "unknown_info": "Independent-oracle fixtures and assertions are private and must not be requested."
+      },
+      "persona": "A benchmark operator requesting an auditable paper-backed implementation."
+    }
+  },
+  {
+    "description": {
+      "notes": "family=constrained-task-allocation; lifecycle_status=candidate; split=test; in_base=false",
+      "purpose": "Evaluate a paper-backed NumPy reconstruction for 07-cooperative-ga：资源与同时到达约束协同 GA.",
+      "relevant_policies": "policy.md"
+    },
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "env_assertions": [
+        {
+          "arguments": {
+            "case_id": "07-cooperative-ga"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_checks_passed",
+          "message": "The submitted candidate must pass the public deterministic checks."
+        },
+        {
+          "arguments": {
+            "case_id": "07-cooperative-ga"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "independent_oracle_passed",
+          "message": "The submitted candidate must pass the independent semantic oracle."
+        },
+        {
+          "arguments": {
+            "case_id": "07-cooperative-ga"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_immutable",
+          "message": "The submitted candidate must remain unchanged while it is evaluated."
+        }
+      ],
+      "nl_assertions": [],
+      "reward_basis": [
+        "ENV_ASSERTION"
+      ]
+    },
+    "id": "07-cooperative-ga",
+    "initial_state": {
+      "initialization_actions": null,
+      "initialization_data": {
+        "agent_data": {
+          "asset_root": ".",
+          "case_id": "07-cooperative-ga",
+          "family": "constrained-task-allocation",
+          "lifecycle_status": "candidate",
+          "manifest_path": "assets/07-cooperative-ga/manifest.json",
+          "paper_path": "assets/07-cooperative-ga/paper.pdf",
+          "paper_sha256": "cc42f1e5e53f034e98c1b33779a8566f2c04fde526832f1cc2ab78065d822fa7",
+          "path_base": "domain-root",
+          "task_path": "assets/07-cooperative-ga/TASK.md",
+          "task_sha256": "2dfcc2950d22c02e71ce9a557563e9dffce5f55885c3e11ab3c76673f8241652",
+          "workspace_hash_algorithm": "paper-loop-source-tree-v1",
+          "workspace_source_path": "assets/07-cooperative-ga/starter",
+          "workspace_source_sha256": "d791eabe9fa845cac6f8d48a82417113dbd5e9c5b297683a6ebedffe08118b00"
+        },
+        "user_data": null
+      },
+      "message_history": null
+    },
+    "ticket": "# 07-cooperative-ga：资源与同时到达约束协同 GA\n\n本案例属于带资源与时序约束的任务分配。需要以论文《Cooperative task allocation with simultaneous arrival and resource constraint for multi-UAV using a genetic algorithm》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `cc42f1e5e53f034e98c1b33779a8566f2c04fde526832f1cc2ab78065d822fa7`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对多类型基因、资源修复、效用排序、同时到达等待以及定制交叉变异。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+    "user_scenario": {
+      "instructions": {
+        "domain": "paper_loop",
+        "known_info": "The paper, task ticket, starter candidate, and their SHA-256 digests are stored under this task's domain-root asset directory.",
+        "reason_for_call": "07-cooperative-ga：资源与同时到达约束协同 GA",
+        "task_instructions": "# 07-cooperative-ga：资源与同时到达约束协同 GA\n\n本案例属于带资源与时序约束的任务分配。需要以论文《Cooperative task allocation with simultaneous arrival and resource constraint for multi-UAV using a genetic algorithm》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `cc42f1e5e53f034e98c1b33779a8566f2c04fde526832f1cc2ab78065d822fa7`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对多类型基因、资源修复、效用排序、同时到达等待以及定制交叉变异。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+        "unknown_info": "Independent-oracle fixtures and assertions are private and must not be requested."
+      },
+      "persona": "A benchmark operator requesting an auditable paper-backed implementation."
+    }
+  },
+  {
+    "description": {
+      "notes": "family=continuous-metaheuristic; lifecycle_status=candidate; split=test; in_base=false",
+      "purpose": "Evaluate a paper-backed NumPy reconstruction for 08-dbo-awoa：DBO-AWOA 自适应鲸鱼优化.",
+      "relevant_policies": "policy.md"
+    },
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "env_assertions": [
+        {
+          "arguments": {
+            "case_id": "08-dbo-awoa"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_checks_passed",
+          "message": "The submitted candidate must pass the public deterministic checks."
+        },
+        {
+          "arguments": {
+            "case_id": "08-dbo-awoa"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "independent_oracle_passed",
+          "message": "The submitted candidate must pass the independent semantic oracle."
+        },
+        {
+          "arguments": {
+            "case_id": "08-dbo-awoa"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_immutable",
+          "message": "The submitted candidate must remain unchanged while it is evaluated."
+        }
+      ],
+      "nl_assertions": [],
+      "reward_basis": [
+        "ENV_ASSERTION"
+      ]
+    },
+    "id": "08-dbo-awoa",
+    "initial_state": {
+      "initialization_actions": null,
+      "initialization_data": {
+        "agent_data": {
+          "asset_root": ".",
+          "case_id": "08-dbo-awoa",
+          "family": "continuous-metaheuristic",
+          "lifecycle_status": "candidate",
+          "manifest_path": "assets/08-dbo-awoa/manifest.json",
+          "paper_path": "assets/08-dbo-awoa/paper.pdf",
+          "paper_sha256": "5fe96e08fd74a634e2524e46cadcabc215da0c3ecf2e8dd2bc85f4db9a3880ee",
+          "path_base": "domain-root",
+          "task_path": "assets/08-dbo-awoa/TASK.md",
+          "task_sha256": "af8c94d614da674e7dda8ac8db94e9c0c1a7b66e067cc7817e98ccde9f1fe6a0",
+          "workspace_hash_algorithm": "paper-loop-source-tree-v1",
+          "workspace_source_path": "assets/08-dbo-awoa/starter",
+          "workspace_source_sha256": "6ea3a63ecea3705f5c448cb42f64883a4eda4f1093761b575f21b9d28e27454b"
+        },
+        "user_data": null
+      },
+      "message_history": null
+    },
+    "ticket": "# 08-dbo-awoa：DBO-AWOA 自适应鲸鱼优化\n\n本案例属于连续域元启发式优化。需要以论文《DBO-AWOA An Adaptive Whale Optimization Algorithm for》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `5fe96e08fd74a634e2524e46cadcabc215da0c3ecf2e8dd2bc85f4db9a3880ee`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对ICMIC 初始化、非线性收敛、自适应惯性、DBO 安全区与 WOA 搜索分支。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+    "user_scenario": {
+      "instructions": {
+        "domain": "paper_loop",
+        "known_info": "The paper, task ticket, starter candidate, and their SHA-256 digests are stored under this task's domain-root asset directory.",
+        "reason_for_call": "08-dbo-awoa：DBO-AWOA 自适应鲸鱼优化",
+        "task_instructions": "# 08-dbo-awoa：DBO-AWOA 自适应鲸鱼优化\n\n本案例属于连续域元启发式优化。需要以论文《DBO-AWOA An Adaptive Whale Optimization Algorithm for》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `5fe96e08fd74a634e2524e46cadcabc215da0c3ecf2e8dd2bc85f4db9a3880ee`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对ICMIC 初始化、非线性收敛、自适应惯性、DBO 安全区与 WOA 搜索分支。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+        "unknown_info": "Independent-oracle fixtures and assertions are private and must not be requested."
+      },
+      "persona": "A benchmark operator requesting an auditable paper-backed implementation."
+    }
+  },
+  {
+    "description": {
+      "notes": "family=continuous-metaheuristic; lifecycle_status=candidate; split=test; in_base=false",
+      "purpose": "Evaluate a paper-backed NumPy reconstruction for 09-dbo：Dung Beetle Optimizer.",
+      "relevant_policies": "policy.md"
+    },
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "env_assertions": [
+        {
+          "arguments": {
+            "case_id": "09-dbo"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_checks_passed",
+          "message": "The submitted candidate must pass the public deterministic checks."
+        },
+        {
+          "arguments": {
+            "case_id": "09-dbo"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "independent_oracle_passed",
+          "message": "The submitted candidate must pass the independent semantic oracle."
+        },
+        {
+          "arguments": {
+            "case_id": "09-dbo"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_immutable",
+          "message": "The submitted candidate must remain unchanged while it is evaluated."
+        }
+      ],
+      "nl_assertions": [],
+      "reward_basis": [
+        "ENV_ASSERTION"
+      ]
+    },
+    "id": "09-dbo",
+    "initial_state": {
+      "initialization_actions": null,
+      "initialization_data": {
+        "agent_data": {
+          "asset_root": ".",
+          "case_id": "09-dbo",
+          "family": "continuous-metaheuristic",
+          "lifecycle_status": "candidate",
+          "manifest_path": "assets/09-dbo/manifest.json",
+          "paper_path": "assets/09-dbo/paper.pdf",
+          "paper_sha256": "536d9baa854e4d9915314c9beeabb10b35a9aa81f554c676fb5b825b45f9c54b",
+          "path_base": "domain-root",
+          "task_path": "assets/09-dbo/TASK.md",
+          "task_sha256": "663d46be593317343b7a2874e3ff281e2169571f544c294c011692c6a5c0b9f6",
+          "workspace_hash_algorithm": "paper-loop-source-tree-v1",
+          "workspace_source_path": "assets/09-dbo/starter",
+          "workspace_source_sha256": "51b6af3f7f80db98e251c7b5987a909412ea450f104e7f419b88d9646e39d5d0"
+        },
+        "user_data": null
+      },
+      "message_history": null
+    },
+    "ticket": "# 09-dbo：Dung Beetle Optimizer\n\n本案例属于连续域元启发式优化。需要以论文《Dung beetle optimizer a new meta-heuristic algorithm for global optimization》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `536d9baa854e4d9915314c9beeabb10b35a9aa81f554c676fb5b825b45f9c54b`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对滚粪球、舞蹈、繁殖、觅食和偷窃五类更新行为。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+    "user_scenario": {
+      "instructions": {
+        "domain": "paper_loop",
+        "known_info": "The paper, task ticket, starter candidate, and their SHA-256 digests are stored under this task's domain-root asset directory.",
+        "reason_for_call": "09-dbo：Dung Beetle Optimizer",
+        "task_instructions": "# 09-dbo：Dung Beetle Optimizer\n\n本案例属于连续域元启发式优化。需要以论文《Dung beetle optimizer a new meta-heuristic algorithm for global optimization》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `536d9baa854e4d9915314c9beeabb10b35a9aa81f554c676fb5b825b45f9c54b`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对滚粪球、舞蹈、繁殖、觅食和偷窃五类更新行为。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+        "unknown_info": "Independent-oracle fixtures and assertions are private and must not be requested."
+      },
+      "persona": "A benchmark operator requesting an auditable paper-backed implementation."
+    }
+  },
+  {
+    "description": {
+      "notes": "family=dynamic-rescue-optimization; lifecycle_status=candidate; split=test; in_base=false",
+      "purpose": "Evaluate a paper-backed NumPy reconstruction for 10-rescue-ensemble：森林火灾救援集成优化.",
+      "relevant_policies": "policy.md"
+    },
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "env_assertions": [
+        {
+          "arguments": {
+            "case_id": "10-rescue-ensemble"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_checks_passed",
+          "message": "The submitted candidate must pass the public deterministic checks."
+        },
+        {
+          "arguments": {
+            "case_id": "10-rescue-ensemble"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "independent_oracle_passed",
+          "message": "The submitted candidate must pass the independent semantic oracle."
+        },
+        {
+          "arguments": {
+            "case_id": "10-rescue-ensemble"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_immutable",
+          "message": "The submitted candidate must remain unchanged while it is evaluated."
+        }
+      ],
+      "nl_assertions": [],
+      "reward_basis": [
+        "ENV_ASSERTION"
+      ]
+    },
+    "id": "10-rescue-ensemble",
+    "initial_state": {
+      "initialization_actions": null,
+      "initialization_data": {
+        "agent_data": {
+          "asset_root": ".",
+          "case_id": "10-rescue-ensemble",
+          "family": "dynamic-rescue-optimization",
+          "lifecycle_status": "candidate",
+          "manifest_path": "assets/10-rescue-ensemble/manifest.json",
+          "paper_path": "assets/10-rescue-ensemble/paper.pdf",
+          "paper_sha256": "9a3bd1a03fd6fdc71b96f18f5ccb0b4ddffe2d3cbdb315be381a1b3aa4690921",
+          "path_base": "domain-root",
+          "task_path": "assets/10-rescue-ensemble/TASK.md",
+          "task_sha256": "821b910d4567cb27bb9f0b72f3752c726b1ab9c54c6030967191319061213073",
+          "workspace_hash_algorithm": "paper-loop-source-tree-v1",
+          "workspace_source_path": "assets/10-rescue-ensemble/starter",
+          "workspace_source_sha256": "f40bacac888ba4729e5fc8c48410049873571e20cb64e853907d592df1f55b87"
+        },
+        "user_data": null
+      },
+      "message_history": null
+    },
+    "ticket": "# 10-rescue-ensemble：森林火灾救援集成优化\n\n本案例属于动态救援仿真与资源优化。需要以论文《Ensemble framework by using nature inspired algorithms for the early-stage forest fire rescue — A case study of dynamic optimization problems》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `9a3bd1a03fd6fdc71b96f18f5ccb0b4ddffe2d3cbdb315be381a1b3aa4690921`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对动态火场状态、关键火点选择、FPSO 飞机分配和反馈闭环。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+    "user_scenario": {
+      "instructions": {
+        "domain": "paper_loop",
+        "known_info": "The paper, task ticket, starter candidate, and their SHA-256 digests are stored under this task's domain-root asset directory.",
+        "reason_for_call": "10-rescue-ensemble：森林火灾救援集成优化",
+        "task_instructions": "# 10-rescue-ensemble：森林火灾救援集成优化\n\n本案例属于动态救援仿真与资源优化。需要以论文《Ensemble framework by using nature inspired algorithms for the early-stage forest fire rescue — A case study of dynamic optimization problems》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `9a3bd1a03fd6fdc71b96f18f5ccb0b4ddffe2d3cbdb315be381a1b3aa4690921`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对动态火场状态、关键火点选择、FPSO 飞机分配和反馈闭环。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+        "unknown_info": "Independent-oracle fixtures and assertions are private and must not be requested."
+      },
+      "persona": "A benchmark operator requesting an auditable paper-backed implementation."
+    }
+  },
+  {
+    "description": {
+      "notes": "family=knowledge-guided-evolution; lifecycle_status=candidate; split=test; in_base=false",
+      "purpose": "Evaluate a paper-backed NumPy reconstruction for 11-klec：Knowledge Learning for Evolutionary Computation.",
+      "relevant_policies": "policy.md"
+    },
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "env_assertions": [
+        {
+          "arguments": {
+            "case_id": "11-klec"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_checks_passed",
+          "message": "The submitted candidate must pass the public deterministic checks."
+        },
+        {
+          "arguments": {
+            "case_id": "11-klec"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "independent_oracle_passed",
+          "message": "The submitted candidate must pass the independent semantic oracle."
+        },
+        {
+          "arguments": {
+            "case_id": "11-klec"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_immutable",
+          "message": "The submitted candidate must remain unchanged while it is evaluated."
+        }
+      ],
+      "nl_assertions": [],
+      "reward_basis": [
+        "ENV_ASSERTION"
+      ]
+    },
+    "id": "11-klec",
+    "initial_state": {
+      "initialization_actions": null,
+      "initialization_data": {
+        "agent_data": {
+          "asset_root": ".",
+          "case_id": "11-klec",
+          "family": "knowledge-guided-evolution",
+          "lifecycle_status": "candidate",
+          "manifest_path": "assets/11-klec/manifest.json",
+          "paper_path": "assets/11-klec/paper.pdf",
+          "paper_sha256": "a13e3a031a85b8825a60b17f89b24317631381aa23c658fa35e853b78ed8dc12",
+          "path_base": "domain-root",
+          "task_path": "assets/11-klec/TASK.md",
+          "task_sha256": "60baf2219a20cadba40d290d450a65f82d3db1b7604f7773d977af42d5082281",
+          "workspace_hash_algorithm": "paper-loop-source-tree-v1",
+          "workspace_source_path": "assets/11-klec/starter",
+          "workspace_source_sha256": "1e976e90e67d6d1b1861e393a074000a9891996d371a0de793a76a0a7ab99ea5"
+        },
+        "user_data": null
+      },
+      "message_history": null
+    },
+    "ticket": "# 11-klec：Knowledge Learning for Evolutionary Computation\n\n本案例属于知识引导的进化计算。需要以论文《Knowledge_Learning_for_Evolutionary_Computation》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `a13e3a031a85b8825a60b17f89b24317631381aa23c658fa35e853b78ed8dc12`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对成功经验收集、知识库训练、方向查询与差分进化闭环。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+    "user_scenario": {
+      "instructions": {
+        "domain": "paper_loop",
+        "known_info": "The paper, task ticket, starter candidate, and their SHA-256 digests are stored under this task's domain-root asset directory.",
+        "reason_for_call": "11-klec：Knowledge Learning for Evolutionary Computation",
+        "task_instructions": "# 11-klec：Knowledge Learning for Evolutionary Computation\n\n本案例属于知识引导的进化计算。需要以论文《Knowledge_Learning_for_Evolutionary_Computation》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `a13e3a031a85b8825a60b17f89b24317631381aa23c658fa35e853b78ed8dc12`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对成功经验收集、知识库训练、方向查询与差分进化闭环。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+        "unknown_info": "Independent-oracle fixtures and assertions are private and must not be requested."
+      },
+      "persona": "A benchmark operator requesting an auditable paper-backed implementation."
+    }
+  },
+  {
+    "description": {
+      "notes": "family=multi-objective-optimization; lifecycle_status=candidate; split=test; in_base=false",
+      "purpose": "Evaluate a paper-backed NumPy reconstruction for 12-moead：MOEA/D 分解式多目标优化.",
+      "relevant_policies": "policy.md"
+    },
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "env_assertions": [
+        {
+          "arguments": {
+            "case_id": "12-moead"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_checks_passed",
+          "message": "The submitted candidate must pass the public deterministic checks."
+        },
+        {
+          "arguments": {
+            "case_id": "12-moead"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "independent_oracle_passed",
+          "message": "The submitted candidate must pass the independent semantic oracle."
+        },
+        {
+          "arguments": {
+            "case_id": "12-moead"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_immutable",
+          "message": "The submitted candidate must remain unchanged while it is evaluated."
+        }
+      ],
+      "nl_assertions": [],
+      "reward_basis": [
+        "ENV_ASSERTION"
+      ]
+    },
+    "id": "12-moead",
+    "initial_state": {
+      "initialization_actions": null,
+      "initialization_data": {
+        "agent_data": {
+          "asset_root": ".",
+          "case_id": "12-moead",
+          "family": "multi-objective-optimization",
+          "lifecycle_status": "candidate",
+          "manifest_path": "assets/12-moead/manifest.json",
+          "paper_path": "assets/12-moead/paper.pdf",
+          "paper_sha256": "aa5a0481be2bc40b76f9712652215045ffea6d59e0cff6f780dc1de7ac67423d",
+          "path_base": "domain-root",
+          "task_path": "assets/12-moead/TASK.md",
+          "task_sha256": "1be8eba1ae96109e8b87a1d6f396b698c7b0372f8efe88ffe1e25c74cd0055ab",
+          "workspace_hash_algorithm": "paper-loop-source-tree-v1",
+          "workspace_source_path": "assets/12-moead/starter",
+          "workspace_source_sha256": "db9a574a6257922ce349f9e9d620cb169a79b0091ba4c4c9878a3fc2401a649f"
+        },
+        "user_data": null
+      },
+      "message_history": null
+    },
+    "ticket": "# 12-moead：MOEA/D 分解式多目标优化\n\n本案例属于多目标进化优化。需要以论文《MOEAD A Multiobjective Evolutionary Algorithm》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `aa5a0481be2bc40b76f9712652215045ffea6d59e0cff6f780dc1de7ac67423d`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对权重分解、邻域共享、理想点更新和非支配档案。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+    "user_scenario": {
+      "instructions": {
+        "domain": "paper_loop",
+        "known_info": "The paper, task ticket, starter candidate, and their SHA-256 digests are stored under this task's domain-root asset directory.",
+        "reason_for_call": "12-moead：MOEA/D 分解式多目标优化",
+        "task_instructions": "# 12-moead：MOEA/D 分解式多目标优化\n\n本案例属于多目标进化优化。需要以论文《MOEAD A Multiobjective Evolutionary Algorithm》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `aa5a0481be2bc40b76f9712652215045ffea6d59e0cff6f780dc1de7ac67423d`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对权重分解、邻域共享、理想点更新和非支配档案。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+        "unknown_info": "Independent-oracle fixtures and assertions are private and must not be requested."
+      },
+      "persona": "A benchmark operator requesting an auditable paper-backed implementation."
+    }
+  },
+  {
+    "description": {
+      "notes": "family=task-allocation-and-path-planning; lifecycle_status=candidate; split=test; in_base=false",
+      "purpose": "Evaluate a paper-backed NumPy reconstruction for 13-bacohba-hbafoa：BACOHBA + HBAFOA.",
+      "relevant_policies": "policy.md"
+    },
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "env_assertions": [
+        {
+          "arguments": {
+            "case_id": "13-bacohba-hbafoa"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_checks_passed",
+          "message": "The submitted candidate must pass the public deterministic checks."
+        },
+        {
+          "arguments": {
+            "case_id": "13-bacohba-hbafoa"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "independent_oracle_passed",
+          "message": "The submitted candidate must pass the independent semantic oracle."
+        },
+        {
+          "arguments": {
+            "case_id": "13-bacohba-hbafoa"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_immutable",
+          "message": "The submitted candidate must remain unchanged while it is evaluated."
+        }
+      ],
+      "nl_assertions": [],
+      "reward_basis": [
+        "ENV_ASSERTION"
+      ]
+    },
+    "id": "13-bacohba-hbafoa",
+    "initial_state": {
+      "initialization_actions": null,
+      "initialization_data": {
+        "agent_data": {
+          "asset_root": ".",
+          "case_id": "13-bacohba-hbafoa",
+          "family": "task-allocation-and-path-planning",
+          "lifecycle_status": "candidate",
+          "manifest_path": "assets/13-bacohba-hbafoa/manifest.json",
+          "paper_path": "assets/13-bacohba-hbafoa/paper.pdf",
+          "paper_sha256": "75bc78ae135971d8744d4512a93f12453771adf89595d09d4d6921c207fa1829",
+          "path_base": "domain-root",
+          "task_path": "assets/13-bacohba-hbafoa/TASK.md",
+          "task_sha256": "34de42f5e6afb441f64967644b1dd063f294f6b61bf95ae0b2641ee40ec50e18",
+          "workspace_hash_algorithm": "paper-loop-source-tree-v1",
+          "workspace_source_path": "assets/13-bacohba-hbafoa/starter",
+          "workspace_source_sha256": "1b321415ed756d172bc8fbd8b9c0a9408f367ccc20628a5b4247d108b8c6913c"
+        },
+        "user_data": null
+      },
+      "message_history": null
+    },
+    "ticket": "# 13-bacohba-hbafoa：BACOHBA + HBAFOA\n\n本案例属于任务分配与路径规划。需要以论文《Multi-mechanism swarm optimization for multi-UAV task assignment and》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `75bc78ae135971d8744d4512a93f12453771adf89595d09d4d6921c207fa1829`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对双向蚁群、离散蜜獾任务分配、蜜獾搜索与果蝇航迹修复。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+    "user_scenario": {
+      "instructions": {
+        "domain": "paper_loop",
+        "known_info": "The paper, task ticket, starter candidate, and their SHA-256 digests are stored under this task's domain-root asset directory.",
+        "reason_for_call": "13-bacohba-hbafoa：BACOHBA + HBAFOA",
+        "task_instructions": "# 13-bacohba-hbafoa：BACOHBA + HBAFOA\n\n本案例属于任务分配与路径规划。需要以论文《Multi-mechanism swarm optimization for multi-UAV task assignment and》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `75bc78ae135971d8744d4512a93f12453771adf89595d09d4d6921c207fa1829`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对双向蚁群、离散蜜獾任务分配、蜜獾搜索与果蝇航迹修复。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+        "unknown_info": "Independent-oracle fixtures and assertions are private and must not be requested."
+      },
+      "persona": "A benchmark operator requesting an auditable paper-backed implementation."
+    }
+  },
+  {
+    "description": {
+      "notes": "family=multi-objective-path-planning; lifecycle_status=candidate; split=test; in_base=false",
+      "purpose": "Evaluate a paper-backed NumPy reconstruction for 14-mopso-rl：MCMOPSO-RL.",
+      "relevant_policies": "policy.md"
+    },
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "env_assertions": [
+        {
+          "arguments": {
+            "case_id": "14-mopso-rl"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_checks_passed",
+          "message": "The submitted candidate must pass the public deterministic checks."
+        },
+        {
+          "arguments": {
+            "case_id": "14-mopso-rl"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "independent_oracle_passed",
+          "message": "The submitted candidate must pass the independent semantic oracle."
+        },
+        {
+          "arguments": {
+            "case_id": "14-mopso-rl"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_immutable",
+          "message": "The submitted candidate must remain unchanged while it is evaluated."
+        }
+      ],
+      "nl_assertions": [],
+      "reward_basis": [
+        "ENV_ASSERTION"
+      ]
+    },
+    "id": "14-mopso-rl",
+    "initial_state": {
+      "initialization_actions": null,
+      "initialization_data": {
+        "agent_data": {
+          "asset_root": ".",
+          "case_id": "14-mopso-rl",
+          "family": "multi-objective-path-planning",
+          "lifecycle_status": "candidate",
+          "manifest_path": "assets/14-mopso-rl/manifest.json",
+          "paper_path": "assets/14-mopso-rl/paper.pdf",
+          "paper_sha256": "a6d69c63ea2af8e8f3fc1233c3a6c01d076aa05f8b8d8b53e6cf2c6be2e7e81c",
+          "path_base": "domain-root",
+          "task_path": "assets/14-mopso-rl/TASK.md",
+          "task_sha256": "17770b91567d6a3248b08e0692950ae2e9adaf38624920024eb8b2d789666c0b",
+          "workspace_hash_algorithm": "paper-loop-source-tree-v1",
+          "workspace_source_path": "assets/14-mopso-rl/starter",
+          "workspace_source_sha256": "d76c492578a6d545f5fc7bf7841dff6e80b9777565879a3711b8c6caf986b830"
+        },
+        "user_data": null
+      },
+      "message_history": null
+    },
+    "ticket": "# 14-mopso-rl：MCMOPSO-RL\n\n本案例属于强化学习驱动的多目标路径优化。需要以论文《Multi-objective particle swarm optimization with multi-mode》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `a6d69c63ea2af8e8f3fc1233c3a6c01d076aa05f8b8d8b53e6cf2c6be2e7e81c`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对粒子独立 Q 表、探索与开发模式、量子差分更新以及非支配档案。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+    "user_scenario": {
+      "instructions": {
+        "domain": "paper_loop",
+        "known_info": "The paper, task ticket, starter candidate, and their SHA-256 digests are stored under this task's domain-root asset directory.",
+        "reason_for_call": "14-mopso-rl：MCMOPSO-RL",
+        "task_instructions": "# 14-mopso-rl：MCMOPSO-RL\n\n本案例属于强化学习驱动的多目标路径优化。需要以论文《Multi-objective particle swarm optimization with multi-mode》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `a6d69c63ea2af8e8f3fc1233c3a6c01d076aa05f8b8d8b53e6cf2c6be2e7e81c`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对粒子独立 Q 表、探索与开发模式、量子差分更新以及非支配档案。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+        "unknown_info": "Independent-oracle fixtures and assertions are private and must not be requested."
+      },
+      "persona": "A benchmark operator requesting an auditable paper-backed implementation."
+    }
+  },
+  {
+    "description": {
+      "notes": "family=continuous-metaheuristic; lifecycle_status=candidate; split=test; in_base=false",
+      "purpose": "Evaluate a paper-backed NumPy reconstruction for 15-rcdbo：RCDBO 多策略协同优化.",
+      "relevant_policies": "policy.md"
+    },
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "env_assertions": [
+        {
+          "arguments": {
+            "case_id": "15-rcdbo"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_checks_passed",
+          "message": "The submitted candidate must pass the public deterministic checks."
+        },
+        {
+          "arguments": {
+            "case_id": "15-rcdbo"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "independent_oracle_passed",
+          "message": "The submitted candidate must pass the independent semantic oracle."
+        },
+        {
+          "arguments": {
+            "case_id": "15-rcdbo"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_immutable",
+          "message": "The submitted candidate must remain unchanged while it is evaluated."
+        }
+      ],
+      "nl_assertions": [],
+      "reward_basis": [
+        "ENV_ASSERTION"
+      ]
+    },
+    "id": "15-rcdbo",
+    "initial_state": {
+      "initialization_actions": null,
+      "initialization_data": {
+        "agent_data": {
+          "asset_root": ".",
+          "case_id": "15-rcdbo",
+          "family": "continuous-metaheuristic",
+          "lifecycle_status": "candidate",
+          "manifest_path": "assets/15-rcdbo/manifest.json",
+          "paper_path": "assets/15-rcdbo/paper.pdf",
+          "paper_sha256": "fdeb2cedd599ded0cba4895a80e1a0a4520d1e13af73b7533e1a9f12bf3f1ec6",
+          "path_base": "domain-root",
+          "task_path": "assets/15-rcdbo/TASK.md",
+          "task_sha256": "e7a9b5ee7d69147c3017f12420891ce0420c3afef5143e0ba4b3ca6134b7c383",
+          "workspace_hash_algorithm": "paper-loop-source-tree-v1",
+          "workspace_source_path": "assets/15-rcdbo/starter",
+          "workspace_source_sha256": "f22da4ee2f308cfc19bf3735e85181dc294ce5b29215d5f72dc848844e30c179"
+        },
+        "user_data": null
+      },
+      "message_history": null
+    },
+    "ticket": "# 15-rcdbo：RCDBO 多策略协同优化\n\n本案例属于连续域元启发式优化。需要以论文《Multi-strategy cooperative 》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `fdeb2cedd599ded0cba4895a80e1a0a4520d1e13af73b7533e1a9f12bf3f1ec6`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对Bernoulli 混沌初始化、停滞随机游走和后期垂直与水平交叉。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+    "user_scenario": {
+      "instructions": {
+        "domain": "paper_loop",
+        "known_info": "The paper, task ticket, starter candidate, and their SHA-256 digests are stored under this task's domain-root asset directory.",
+        "reason_for_call": "15-rcdbo：RCDBO 多策略协同优化",
+        "task_instructions": "# 15-rcdbo：RCDBO 多策略协同优化\n\n本案例属于连续域元启发式优化。需要以论文《Multi-strategy cooperative 》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `fdeb2cedd599ded0cba4895a80e1a0a4520d1e13af73b7533e1a9f12bf3f1ec6`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对Bernoulli 混沌初始化、停滞随机游走和后期垂直与水平交叉。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+        "unknown_info": "Independent-oracle fixtures and assertions are private and must not be requested."
+      },
+      "persona": "A benchmark operator requesting an auditable paper-backed implementation."
+    }
+  },
+  {
+    "description": {
+      "notes": "family=continuous-metaheuristic; lifecycle_status=candidate; split=test; in_base=false",
+      "purpose": "Evaluate a paper-backed NumPy reconstruction for 16-msdbo：MSDBO 混合自适应优化.",
+      "relevant_policies": "policy.md"
+    },
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "env_assertions": [
+        {
+          "arguments": {
+            "case_id": "16-msdbo"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_checks_passed",
+          "message": "The submitted candidate must pass the public deterministic checks."
+        },
+        {
+          "arguments": {
+            "case_id": "16-msdbo"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "independent_oracle_passed",
+          "message": "The submitted candidate must pass the independent semantic oracle."
+        },
+        {
+          "arguments": {
+            "case_id": "16-msdbo"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_immutable",
+          "message": "The submitted candidate must remain unchanged while it is evaluated."
+        }
+      ],
+      "nl_assertions": [],
+      "reward_basis": [
+        "ENV_ASSERTION"
+      ]
+    },
+    "id": "16-msdbo",
+    "initial_state": {
+      "initialization_actions": null,
+      "initialization_data": {
+        "agent_data": {
+          "asset_root": ".",
+          "case_id": "16-msdbo",
+          "family": "continuous-metaheuristic",
+          "lifecycle_status": "candidate",
+          "manifest_path": "assets/16-msdbo/manifest.json",
+          "paper_path": "assets/16-msdbo/paper.pdf",
+          "paper_sha256": "64cedf446f09da189b3720f9dc3798125186977526d4cd139669683c1fef4494",
+          "path_base": "domain-root",
+          "task_path": "assets/16-msdbo/TASK.md",
+          "task_sha256": "8cae10b29c81f2f75ad06c21934ddac5eae28db4e02405a5a98852ba3273accd",
+          "workspace_hash_algorithm": "paper-loop-source-tree-v1",
+          "workspace_source_path": "assets/16-msdbo/starter",
+          "workspace_source_sha256": "dd65b690389bd977900d7e31eb30d574e2720fa24e111b2317e27b05f7dd9a51"
+        },
+        "user_data": null
+      },
+      "message_history": null
+    },
+    "ticket": "# 16-msdbo：MSDBO 混合自适应优化\n\n本案例属于连续域元启发式优化。需要以论文《Multi-strategy hybrid adaptive 》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `64cedf446f09da189b3720f9dc3798125186977526d4cd139669683c1fef4494`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对Piecewise 混沌、Osprey 探索、自适应 t 分布、动态权重和模拟退火。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+    "user_scenario": {
+      "instructions": {
+        "domain": "paper_loop",
+        "known_info": "The paper, task ticket, starter candidate, and their SHA-256 digests are stored under this task's domain-root asset directory.",
+        "reason_for_call": "16-msdbo：MSDBO 混合自适应优化",
+        "task_instructions": "# 16-msdbo：MSDBO 混合自适应优化\n\n本案例属于连续域元启发式优化。需要以论文《Multi-strategy hybrid adaptive 》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `64cedf446f09da189b3720f9dc3798125186977526d4cd139669683c1fef4494`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对Piecewise 混沌、Osprey 探索、自适应 t 分布、动态权重和模拟退火。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+        "unknown_info": "Independent-oracle fixtures and assertions are private and must not be requested."
+      },
+      "persona": "A benchmark operator requesting an auditable paper-backed implementation."
+    }
+  },
+  {
+    "description": {
+      "notes": "family=three-dimensional-path-planning; lifecycle_status=candidate; split=test; in_base=false",
+      "purpose": "Evaluate a paper-backed NumPy reconstruction for 17-msboa：MSBOA 三维无人机路径规划.",
+      "relevant_policies": "policy.md"
+    },
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "env_assertions": [
+        {
+          "arguments": {
+            "case_id": "17-msboa"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_checks_passed",
+          "message": "The submitted candidate must pass the public deterministic checks."
+        },
+        {
+          "arguments": {
+            "case_id": "17-msboa"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "independent_oracle_passed",
+          "message": "The submitted candidate must pass the independent semantic oracle."
+        },
+        {
+          "arguments": {
+            "case_id": "17-msboa"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_immutable",
+          "message": "The submitted candidate must remain unchanged while it is evaluated."
+        }
+      ],
+      "nl_assertions": [],
+      "reward_basis": [
+        "ENV_ASSERTION"
+      ]
+    },
+    "id": "17-msboa",
+    "initial_state": {
+      "initialization_actions": null,
+      "initialization_data": {
+        "agent_data": {
+          "asset_root": ".",
+          "case_id": "17-msboa",
+          "family": "three-dimensional-path-planning",
+          "lifecycle_status": "candidate",
+          "manifest_path": "assets/17-msboa/manifest.json",
+          "paper_path": "assets/17-msboa/paper.pdf",
+          "paper_sha256": "a62c748a565651feb6d4560666b1e08167a47755e1a3324d875a9b6957887d00",
+          "path_base": "domain-root",
+          "task_path": "assets/17-msboa/TASK.md",
+          "task_sha256": "fd62c1a1830e33be7a4bbdaf4118b9ddede3af91432b0a0ed321b0b85d42f4a4",
+          "workspace_hash_algorithm": "paper-loop-source-tree-v1",
+          "workspace_source_path": "assets/17-msboa/starter",
+          "workspace_source_sha256": "116a5eeda1b755d164d6d597ca1aa9d79ad6cfecf5c7732578eef122c22d9ffa"
+        },
+        "user_data": null
+      },
+      "message_history": null
+    },
+    "ticket": "# 17-msboa：MSBOA 三维无人机路径规划\n\n本案例属于三维无人机路径规划。需要以论文《Multi-strategy secretary bird optimization algorithm for UAV path planning in complex environment》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `a62c748a565651feb6d4560666b1e08167a47755e1a3324d875a9b6957887d00`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对秘书鸟多策略搜索、圆柱威胁区、飞行高度、距离与转向平滑代价。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+    "user_scenario": {
+      "instructions": {
+        "domain": "paper_loop",
+        "known_info": "The paper, task ticket, starter candidate, and their SHA-256 digests are stored under this task's domain-root asset directory.",
+        "reason_for_call": "17-msboa：MSBOA 三维无人机路径规划",
+        "task_instructions": "# 17-msboa：MSBOA 三维无人机路径规划\n\n本案例属于三维无人机路径规划。需要以论文《Multi-strategy secretary bird optimization algorithm for UAV path planning in complex environment》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `a62c748a565651feb6d4560666b1e08167a47755e1a3324d875a9b6957887d00`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对秘书鸟多策略搜索、圆柱威胁区、飞行高度、距离与转向平滑代价。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+        "unknown_info": "Independent-oracle fixtures and assertions are private and must not be requested."
+      },
+      "persona": "A benchmark operator requesting an auditable paper-backed implementation."
+    }
+  },
+  {
+    "description": {
+      "notes": "family=hybrid-path-planning; lifecycle_status=candidate; split=test; in_base=false",
+      "purpose": "Evaluate a paper-backed NumPy reconstruction for 18-pruned-astar-metaheuristics：Pruned A* + 元启发式.",
+      "relevant_policies": "policy.md"
+    },
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "env_assertions": [
+        {
+          "arguments": {
+            "case_id": "18-pruned-astar-metaheuristics"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_checks_passed",
+          "message": "The submitted candidate must pass the public deterministic checks."
+        },
+        {
+          "arguments": {
+            "case_id": "18-pruned-astar-metaheuristics"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "independent_oracle_passed",
+          "message": "The submitted candidate must pass the independent semantic oracle."
+        },
+        {
+          "arguments": {
+            "case_id": "18-pruned-astar-metaheuristics"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_immutable",
+          "message": "The submitted candidate must remain unchanged while it is evaluated."
+        }
+      ],
+      "nl_assertions": [],
+      "reward_basis": [
+        "ENV_ASSERTION"
+      ]
+    },
+    "id": "18-pruned-astar-metaheuristics",
+    "initial_state": {
+      "initialization_actions": null,
+      "initialization_data": {
+        "agent_data": {
+          "asset_root": ".",
+          "case_id": "18-pruned-astar-metaheuristics",
+          "family": "hybrid-path-planning",
+          "lifecycle_status": "candidate",
+          "manifest_path": "assets/18-pruned-astar-metaheuristics/manifest.json",
+          "paper_path": "assets/18-pruned-astar-metaheuristics/paper.pdf",
+          "paper_sha256": "ce15f6ed47ba12f518287ffd1c570879345d03a8e87c0e794e29c289f076e857",
+          "path_base": "domain-root",
+          "task_path": "assets/18-pruned-astar-metaheuristics/TASK.md",
+          "task_sha256": "e3025ccd5c94f584efb785cbbb4a727d9e93a6209e34be6994c444efc08fa511",
+          "workspace_hash_algorithm": "paper-loop-source-tree-v1",
+          "workspace_source_path": "assets/18-pruned-astar-metaheuristics/starter",
+          "workspace_source_sha256": "dcf532ab14bd560a47c0a69518f273f142072d6d95e353ed6e6466ff5326cc48"
+        },
+        "user_data": null
+      },
+      "message_history": null
+    },
+    "ticket": "# 18-pruned-astar-metaheuristics：Pruned A* + 元启发式\n\n本案例属于离散与连续混合路径规划。需要以论文《Optimized_Path-Planning_in_Continuous_Spaces_for_Unmanned_Aerial_Vehicles_Using_Meta-Heuristics》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `ce15f6ed47ba12f518287ffd1c570879345d03a8e87c0e794e29c289f076e857`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对三维 A*、同方向节点剪枝、连续控制点编码和可行性优先差分进化。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+    "user_scenario": {
+      "instructions": {
+        "domain": "paper_loop",
+        "known_info": "The paper, task ticket, starter candidate, and their SHA-256 digests are stored under this task's domain-root asset directory.",
+        "reason_for_call": "18-pruned-astar-metaheuristics：Pruned A* + 元启发式",
+        "task_instructions": "# 18-pruned-astar-metaheuristics：Pruned A* + 元启发式\n\n本案例属于离散与连续混合路径规划。需要以论文《Optimized_Path-Planning_in_Continuous_Spaces_for_Unmanned_Aerial_Vehicles_Using_Meta-Heuristics》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `ce15f6ed47ba12f518287ffd1c570879345d03a8e87c0e794e29c289f076e857`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对三维 A*、同方向节点剪枝、连续控制点编码和可行性优先差分进化。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+        "unknown_info": "Independent-oracle fixtures and assertions are private and must not be requested."
+      },
+      "persona": "A benchmark operator requesting an auditable paper-backed implementation."
+    }
+  },
+  {
+    "description": {
+      "notes": "family=reinforcement-guided-path-planning; lifecycle_status=candidate; split=test; in_base=false",
+      "purpose": "Evaluate a paper-backed NumPy reconstruction for 19-ql-mopso：QL-MOPSO 强化学习引导粒子群.",
+      "relevant_policies": "policy.md"
+    },
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "env_assertions": [
+        {
+          "arguments": {
+            "case_id": "19-ql-mopso"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_checks_passed",
+          "message": "The submitted candidate must pass the public deterministic checks."
+        },
+        {
+          "arguments": {
+            "case_id": "19-ql-mopso"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "independent_oracle_passed",
+          "message": "The submitted candidate must pass the independent semantic oracle."
+        },
+        {
+          "arguments": {
+            "case_id": "19-ql-mopso"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_immutable",
+          "message": "The submitted candidate must remain unchanged while it is evaluated."
+        }
+      ],
+      "nl_assertions": [],
+      "reward_basis": [
+        "ENV_ASSERTION"
+      ]
+    },
+    "id": "19-ql-mopso",
+    "initial_state": {
+      "initialization_actions": null,
+      "initialization_data": {
+        "agent_data": {
+          "asset_root": ".",
+          "case_id": "19-ql-mopso",
+          "family": "reinforcement-guided-path-planning",
+          "lifecycle_status": "candidate",
+          "manifest_path": "assets/19-ql-mopso/manifest.json",
+          "paper_path": "assets/19-ql-mopso/paper.pdf",
+          "paper_sha256": "8e7d0d646543d5604a753cc156ab839b0046c33466aac9daac6a27b78927d3e3",
+          "path_base": "domain-root",
+          "task_path": "assets/19-ql-mopso/TASK.md",
+          "task_sha256": "112b5f93df4281dfd6fad65509f45dd73c417c712e9498d9fbd6fc7a0433aaa5",
+          "workspace_hash_algorithm": "paper-loop-source-tree-v1",
+          "workspace_source_path": "assets/19-ql-mopso/starter",
+          "workspace_source_sha256": "2bf0c5ecb77e90c20f29c565d7a8f4c45b5bd3fdb08c9ed1590136015bcb88e3"
+        },
+        "user_data": null
+      },
+      "message_history": null
+    },
+    "ticket": "# 19-ql-mopso：QL-MOPSO 强化学习引导粒子群\n\n本案例属于强化学习引导的多目标路径规划。需要以论文《Reinforcement Learning-Guided Particle Swarm Optimization》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `8e7d0d646543d5604a753cc156ab839b0046c33466aac9daac6a27b78927d3e3`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对栅格 Q-learning 引导、粒子更新、多目标代价和非支配档案。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+    "user_scenario": {
+      "instructions": {
+        "domain": "paper_loop",
+        "known_info": "The paper, task ticket, starter candidate, and their SHA-256 digests are stored under this task's domain-root asset directory.",
+        "reason_for_call": "19-ql-mopso：QL-MOPSO 强化学习引导粒子群",
+        "task_instructions": "# 19-ql-mopso：QL-MOPSO 强化学习引导粒子群\n\n本案例属于强化学习引导的多目标路径规划。需要以论文《Reinforcement Learning-Guided Particle Swarm Optimization》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `8e7d0d646543d5604a753cc156ab839b0046c33466aac9daac6a27b78927d3e3`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对栅格 Q-learning 引导、粒子更新、多目标代价和非支配档案。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+        "unknown_info": "Independent-oracle fixtures and assertions are private and must not be requested."
+      },
+      "persona": "A benchmark operator requesting an auditable paper-backed implementation."
+    }
+  },
+  {
+    "description": {
+      "notes": "family=constrained-task-allocation; lifecycle_status=candidate; split=test; in_base=false",
+      "purpose": "Evaluate a paper-backed NumPy reconstruction for 20-tgals：TGALS 两阶段任务分配.",
+      "relevant_policies": "policy.md"
+    },
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "env_assertions": [
+        {
+          "arguments": {
+            "case_id": "20-tgals"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_checks_passed",
+          "message": "The submitted candidate must pass the public deterministic checks."
+        },
+        {
+          "arguments": {
+            "case_id": "20-tgals"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "independent_oracle_passed",
+          "message": "The submitted candidate must pass the independent semantic oracle."
+        },
+        {
+          "arguments": {
+            "case_id": "20-tgals"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_immutable",
+          "message": "The submitted candidate must remain unchanged while it is evaluated."
+        }
+      ],
+      "nl_assertions": [],
+      "reward_basis": [
+        "ENV_ASSERTION"
+      ]
+    },
+    "id": "20-tgals",
+    "initial_state": {
+      "initialization_actions": null,
+      "initialization_data": {
+        "agent_data": {
+          "asset_root": ".",
+          "case_id": "20-tgals",
+          "family": "constrained-task-allocation",
+          "lifecycle_status": "candidate",
+          "manifest_path": "assets/20-tgals/manifest.json",
+          "paper_path": "assets/20-tgals/paper.pdf",
+          "paper_sha256": "2563139a062e2e4e2df0647df52aa4454e9af298aa7cb9082a338cedf776db9c",
+          "path_base": "domain-root",
+          "task_path": "assets/20-tgals/TASK.md",
+          "task_sha256": "2771092e29cf84b9986030a6819131e64780fd4e4cb3ef4de6b6cfd2c2a39c85",
+          "workspace_hash_algorithm": "paper-loop-source-tree-v1",
+          "workspace_source_path": "assets/20-tgals/starter",
+          "workspace_source_sha256": "47ae777ceb80c92e120e283ffa2d9d83ab085db4c25439264010b50b7b852e0b"
+        },
+        "user_data": null
+      },
+      "message_history": null
+    },
+    "ticket": "# 20-tgals：TGALS 两阶段任务分配\n\n本案例属于带冲突约束的任务分配。需要以论文《Two-stage heuristic genetic optimization algorithm for multi-UAV 》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `2563139a062e2e4e2df0647df52aa4454e9af298aa7cb9082a338cedf776db9c`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对匈牙利启发式种子、任务收益、冲突消解修复和遗传搜索。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+    "user_scenario": {
+      "instructions": {
+        "domain": "paper_loop",
+        "known_info": "The paper, task ticket, starter candidate, and their SHA-256 digests are stored under this task's domain-root asset directory.",
+        "reason_for_call": "20-tgals：TGALS 两阶段任务分配",
+        "task_instructions": "# 20-tgals：TGALS 两阶段任务分配\n\n本案例属于带冲突约束的任务分配。需要以论文《Two-stage heuristic genetic optimization algorithm for multi-UAV 》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `2563139a062e2e4e2df0647df52aa4454e9af298aa7cb9082a338cedf776db9c`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对匈牙利启发式种子、任务收益、冲突消解修复和遗传搜索。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+        "unknown_info": "Independent-oracle fixtures and assertions are private and must not be requested."
+      },
+      "persona": "A benchmark operator requesting an auditable paper-backed implementation."
+    }
+  },
+  {
+    "description": {
+      "notes": "family=multi-objective-path-planning; lifecycle_status=candidate; split=test; in_base=false",
+      "purpose": "Evaluate a paper-backed NumPy reconstruction for 21-pvde-mojs：PVDE-MOJS 水母搜索.",
+      "relevant_policies": "policy.md"
+    },
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "env_assertions": [
+        {
+          "arguments": {
+            "case_id": "21-pvde-mojs"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_checks_passed",
+          "message": "The submitted candidate must pass the public deterministic checks."
+        },
+        {
+          "arguments": {
+            "case_id": "21-pvde-mojs"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "independent_oracle_passed",
+          "message": "The submitted candidate must pass the independent semantic oracle."
+        },
+        {
+          "arguments": {
+            "case_id": "21-pvde-mojs"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_immutable",
+          "message": "The submitted candidate must remain unchanged while it is evaluated."
+        }
+      ],
+      "nl_assertions": [],
+      "reward_basis": [
+        "ENV_ASSERTION"
+      ]
+    },
+    "id": "21-pvde-mojs",
+    "initial_state": {
+      "initialization_actions": null,
+      "initialization_data": {
+        "agent_data": {
+          "asset_root": ".",
+          "case_id": "21-pvde-mojs",
+          "family": "multi-objective-path-planning",
+          "lifecycle_status": "candidate",
+          "manifest_path": "assets/21-pvde-mojs/manifest.json",
+          "paper_path": "assets/21-pvde-mojs/paper.pdf",
+          "paper_sha256": "fa62762ce2004056a2d38996b6987383efc9d31bac6496939f8ee5b62850a4b0",
+          "path_base": "domain-root",
+          "task_path": "assets/21-pvde-mojs/TASK.md",
+          "task_sha256": "cb869c66ba731e93be271ae074cdbb08c937be299eed811deb68cea734c5d544",
+          "workspace_hash_algorithm": "paper-loop-source-tree-v1",
+          "workspace_source_path": "assets/21-pvde-mojs/starter",
+          "workspace_source_sha256": "4ce3d1a97b985beb711cf2dc1bc322e331bd7f70b298c31fe5e2aa8483c0dab1"
+        },
+        "user_data": null
+      },
+      "message_history": null
+    },
+    "ticket": "# 21-pvde-mojs：PVDE-MOJS 水母搜索\n\n本案例属于多目标无人机路径规划。需要以论文《UAV Path Planning for Forest Firefighting Using Optimized Multi-Objective Jellyfish Search Algorithm》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `fa62762ce2004056a2d38996b6987383efc9d31bac6496939f8ee5b62850a4b0`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对Logistic 初始化、水母三类行为、差分进化交叉和 Pareto 档案。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+    "user_scenario": {
+      "instructions": {
+        "domain": "paper_loop",
+        "known_info": "The paper, task ticket, starter candidate, and their SHA-256 digests are stored under this task's domain-root asset directory.",
+        "reason_for_call": "21-pvde-mojs：PVDE-MOJS 水母搜索",
+        "task_instructions": "# 21-pvde-mojs：PVDE-MOJS 水母搜索\n\n本案例属于多目标无人机路径规划。需要以论文《UAV Path Planning for Forest Firefighting Using Optimized Multi-Objective Jellyfish Search Algorithm》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `fa62762ce2004056a2d38996b6987383efc9d31bac6496939f8ee5b62850a4b0`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对Logistic 初始化、水母三类行为、差分进化交叉和 Pareto 档案。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+        "unknown_info": "Independent-oracle fixtures and assertions are private and must not be requested."
+      },
+      "persona": "A benchmark operator requesting an auditable paper-backed implementation."
+    }
+  },
+  {
+    "description": {
+      "notes": "family=multi-uav-path-planning; lifecycle_status=candidate; split=test; in_base=false",
+      "purpose": "Evaluate a paper-backed NumPy reconstruction for 22-amiso：AMISO 自适应多策略蛇优化.",
+      "relevant_policies": "policy.md"
+    },
+    "evaluation_criteria": {
+      "actions": [],
+      "communicate_info": [],
+      "env_assertions": [
+        {
+          "arguments": {
+            "case_id": "22-amiso"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_checks_passed",
+          "message": "The submitted candidate must pass the public deterministic checks."
+        },
+        {
+          "arguments": {
+            "case_id": "22-amiso"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "independent_oracle_passed",
+          "message": "The submitted candidate must pass the independent semantic oracle."
+        },
+        {
+          "arguments": {
+            "case_id": "22-amiso"
+          },
+          "assert_value": true,
+          "env_type": "assistant",
+          "func_name": "candidate_immutable",
+          "message": "The submitted candidate must remain unchanged while it is evaluated."
+        }
+      ],
+      "nl_assertions": [],
+      "reward_basis": [
+        "ENV_ASSERTION"
+      ]
+    },
+    "id": "22-amiso",
+    "initial_state": {
+      "initialization_actions": null,
+      "initialization_data": {
+        "agent_data": {
+          "asset_root": ".",
+          "case_id": "22-amiso",
+          "family": "multi-uav-path-planning",
+          "lifecycle_status": "candidate",
+          "manifest_path": "assets/22-amiso/manifest.json",
+          "paper_path": "assets/22-amiso/paper.pdf",
+          "paper_sha256": "c2ec670e2d560f001ed64e6edb5eb73ca21912897ce4f0c86a2e06ba0e811f3b",
+          "path_base": "domain-root",
+          "task_path": "assets/22-amiso/TASK.md",
+          "task_sha256": "a4d6de37c14fa04a65560c775a4dfb74a1b94d45f33fd3281ee2037be55aeb87",
+          "workspace_hash_algorithm": "paper-loop-source-tree-v1",
+          "workspace_source_path": "assets/22-amiso/starter",
+          "workspace_source_sha256": "93de9a07081e457b9da087a1dbac9bb4a8ca9de0691b891dfb635cce8e5b5191"
+        },
+        "user_data": null
+      },
+      "message_history": null
+    },
+    "ticket": "# 22-amiso：AMISO 自适应多策略蛇优化\n\n本案例属于多无人机路径规划与连续优化。需要以论文《基于自适应多策略改进蛇优化算法的多无人机路径规划方法_王凯》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `c2ec670e2d560f001ed64e6edb5eb73ca21912897ce4f0c86a2e06ba0e811f3b`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对混沌初始化、温度与食物阶段、霜冻扰动、轮盘赌差分策略和分层进化。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+    "user_scenario": {
+      "instructions": {
+        "domain": "paper_loop",
+        "known_info": "The paper, task ticket, starter candidate, and their SHA-256 digests are stored under this task's domain-root asset directory.",
+        "reason_for_call": "22-amiso：AMISO 自适应多策略蛇优化",
+        "task_instructions": "# 22-amiso：AMISO 自适应多策略蛇优化\n\n本案例属于多无人机路径规划与连续优化。需要以论文《基于自适应多策略改进蛇优化算法的多无人机路径规划方法_王凯》为主要证据，持续完善已有 NumPy 核心重建。\n\n## 输入材料\n\n论文文件为本案例目录中的 `paper.pdf`，登记的 SHA-256 为 `c2ec670e2d560f001ed64e6edb5eb73ca21912897ce4f0c86a2e06ba0e811f3b`。第一轮从本案例目录中的 `starter/` 候选开始；它只是可修改的起点，不是标准答案。\n\n## 本案例重点\n\n重点核对混沌初始化、温度与食物阶段、霜冻扰动、轮盘赌差分策略和分层进化。每个执行步骤都应能关联论文中的页码、公式、算法或图，并能对应到候选中的具体代码和中间结果。\n\n## 完成标准\n\n- 候选明确区分论文事实、工程推断和为了可运行而采用的替代假设。\n- 执行图、说明、NumPy 代码和实际输出彼此一致，没有仅存在于图中或仅存在于代码中的关键步骤。\n- 实现只使用 Python 标准库与 NumPy，可在 CPU 和无网络环境中运行，并在固定种子下重复得到一致结果。\n- 原始输出足以让外部检查重新计算目标值和约束；候选自报的通过状态不能代替独立验证。\n- 对论文未公开的数据、地图、权重、训练产物或商业工具结果，必须说明替代方式及其对结论的影响。\n\n每轮开发和审查都应提交自然语言 Markdown 记录，不得在面向人的报告中倾倒 JSON、YAML、XML 或内部控制状态。独立审查者每轮使用全新上下文，且只能查看论文、本页要求、当前冻结候选和本轮自动检查结果。\n",
+        "unknown_info": "Independent-oracle fixtures and assertions are private and must not be requested."
+      },
+      "persona": "A benchmark operator requesting an auditable paper-backed implementation."
+    }
+  }
+]

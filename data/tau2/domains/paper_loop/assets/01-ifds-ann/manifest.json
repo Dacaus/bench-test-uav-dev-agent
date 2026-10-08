@@ -1,0 +1,49 @@
+{
+  "assets": {
+    "paper": {
+      "path": "assets/01-ifds-ann/paper.pdf",
+      "sha256": "fe005d7ef9641965dbef34f58d728113befbd699e5990c4dbb747efe95a5a7f9"
+    },
+    "starter_candidate": {
+      "entries": {
+        "README.md": {
+          "kind": "file",
+          "sha256": "d3263c67a0cba91158df26ba6009109b552bb0102ae4080b87e574423f5e341a"
+        },
+        "execution-graph.svg": {
+          "kind": "file",
+          "sha256": "bf55f07f319f51c54f1da63b38ba37411aa7268a0231b1dd47a68e47b74ff72b"
+        },
+        "result.json": {
+          "kind": "file",
+          "sha256": "384b43d1ca16c8a7b0cdd1e1b9ea116422ade007483e49c0c12dad0017684638"
+        },
+        "run.py": {
+          "kind": "file",
+          "sha256": "a6f1001cbe90a90a5628b194232c77de1c26e344a8bba2a7f038e29cf6ba075d"
+        }
+      },
+      "entry_count": 4,
+      "excluded_globs": [
+        "**/__pycache__/**",
+        "**/*.pyc"
+      ],
+      "hash_algorithm": "paper-loop-source-tree-v1",
+      "path": "assets/01-ifds-ann/starter",
+      "tree_sha256": "730c7596368d483cebbade19020db5706fc8cbd6a0511675890e134562b3fc6b"
+    },
+    "task": {
+      "path": "assets/01-ifds-ann/TASK.md",
+      "sha256": "28a70e65963d9041d635849940fcc6461a96bdc585e1b4672a64738e342737b3"
+    }
+  },
+  "benchmark_split": "train",
+  "case_id": "01-ifds-ann",
+  "domain": "paper_loop",
+  "family": "dynamic-path-planning",
+  "in_base": true,
+  "lifecycle_status": "ready",
+  "path_base": "domain-root",
+  "schema_version": 1,
+  "visibility": "agent"
+}
